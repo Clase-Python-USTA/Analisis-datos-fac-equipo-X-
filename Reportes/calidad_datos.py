@@ -1,3 +1,4 @@
+
 # calidad_datos.py
 import pandas as pd
 import numpy as np
@@ -26,4 +27,5 @@ problematic_columns = [col for col in df.columns if 'Ã' in col or 'â' in col]
 print(f"Columnas con encoding problemático: {len(problematic_columns)}")
 for col in problematic_columns[:5]:
     print(f" - {col}")
+
 
