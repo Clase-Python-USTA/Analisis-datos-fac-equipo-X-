@@ -33,7 +33,7 @@ for col in problematic_columns[:5]:
     print(f" - {col}")   # ahora bien indentado
 
 # -----------------------------
-# Corrección de caracteres
+# Corrección de caracteres mal leídos
 # -----------------------------
 reemplazos = {
     "Ã¡": "á", "Ã©": "é", "Ã­": "í", "Ã³": "ó", "Ãº": "ú",
@@ -47,8 +47,85 @@ def limpiar_texto(texto):
             texto = texto.replace(mal, bien)
     return texto
 
-# Crear nueva base corregida (sin modificar la original)
+# Crear copia corregida
 df_corregido = df.copy()
 for col in df_corregido.select_dtypes(include=['object']).columns:
     df_corregido[col] = df_corregido[col].apply(limpiar_texto)
 
+# -----------------------------
+# Diccionario de parentescos
+# -----------------------------
+mapa_keywords = {
+    # --- Singular ---
+    "madre|mamá|mama": "Madre",
+    "padre|papá|papa": "Padre",
+    "abuela|abuelita|nona": "Abuela",
+    "abuelo|abuelito": "Abuelo",
+    "tío|tio": "Tío",
+    "tía|tia": "Tía",
+    "hermano|hermanito": "Hermano",
+    "hermana|hermanita": "Hermana",
+    "primo": "Primo",
+    "prima": "Prima",
+    "suegro": "Suegro",
+    "suegra": "Suegra",
+    "esposo|esposa|pareja|compañero": "Pareja",
+    "hijo|hija|hij@": "Hijo",
+    "nieto": "Nieto",
+    "nieta": "Nieta",
+    "sobrino": "Sobrino",
+    "sobrina": "Sobrina",
+    "cuñado": "Cuñado",
+    "cuñada": "Cuñada",
+    "padrastro": "Padrastro",
+    "madrastra": "Madrastra",
+    "bisabuelo": "Bisabuelo",
+    "bisabuela": "Bisabuela",
+    "padrino": "Padrino",
+    "madrina": "Madrina",
+    "ex pareja|expareja": "Ex Pareja",
+
+    # --- Plural (se respetan tal cual) ---
+    "abuelos": "Abuelos",
+    "padres": "Padres",
+    "hijos": "Hijos",
+    "suegros": "Suegros",
+    "hermanos": "Hermanos",
+    "hermanas": "Hermanas",
+    "primos": "Primos",
+    "primas": "Primas",
+    "nietos": "Nietos",
+    "nietas": "Nietas",
+    "sobrinos": "Sobrinos",
+    "sobrinas": "Sobrinas",
+    "cuñados": "Cuñados"
+}
+
+# -----------------------------
+# Función de estandarización
+# -----------------------------
+def estandarizar_parentesco(texto):
+    if not isinstance(texto, str):
+        return texto
+    
+    limpio = texto.lower()
+    categorias = []
+    for patron, categoria in mapa_keywords.items():
+        if re.search(rf"\b{patron}\b", limpio):
+            categorias.append(categoria)
+    
+    if categorias:
+        return ", ".join(sorted(set(categorias)))
+    return texto  # deja el valor original si no coincide
+
+# -----------------------------
+# Aplicar a toda la base
+# -----------------------------
+for col in df_corregido.select_dtypes(include=["object"]).columns:
+    df_corregido[col] = df_corregido[col].apply(estandarizar_parentesco)
+
+# -----------------------------
+# Guardar resultado limpio
+# -----------------------------
+df_corregido.to_excel("datos/JEFAB_2024_limpio.xlsx", index=False)
+print(" Base corregida y guardada como 'JEFAB_2024_limpio.xlsx'")
