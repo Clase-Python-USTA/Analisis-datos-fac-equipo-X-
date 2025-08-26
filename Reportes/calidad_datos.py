@@ -1,4 +1,3 @@
-
 # calidad_datos.py
 import pandas as pd
 import numpy as np
@@ -28,4 +27,11 @@ print(f"Columnas con encoding problemático: {len(problematic_columns)}")
 for col in problematic_columns[:5]:
     print(f" - {col}")
 
+
+# Exportar reporte de faltantes
+missing_info.to_excel("Reportes/reporte_faltantes.xlsx", index=False)
+
+# Exportar dataset limpio
+df_limpio = df.drop_duplicates()
+df_limpio.to_excel("Reportes/base_limpia.xlsx", index=False)
 
