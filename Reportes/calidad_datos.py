@@ -11,9 +11,9 @@ missing_data = df.isnull().sum()
 missing_percent = (missing_data / len(df)) * 100
 print("Top 10 columnas con más datos faltantes:")
 missing_info = pd.DataFrame({
-    'Columna': missing_data.index,
-    'Datos_Faltantes': missing_data.values,
-    'Porcentaje': missing_percent.values
+'Columna': missing_data.index,
+'Datos_Faltantes': missing_data.values,
+'Porcentaje': missing_percent.values
 }).sort_values('Datos_Faltantes', ascending=False)
 print(missing_info.head(10))
 
@@ -52,6 +52,3 @@ df_corregido = df.copy()
 for col in df_corregido.select_dtypes(include=['object']).columns:
     df_corregido[col] = df_corregido[col].apply(limpiar_texto)
 
-# Guardar como nuevo archivo
-df_corregido.to_excel("datos/JEFAB_2024_corregido.xlsx", index=False)
-print("✅ Nueva base corregida guardada como 'datos/JEFAB_2024_corregido.xlsx'")
