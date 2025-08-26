@@ -30,7 +30,7 @@ print(f"\n=== COLUMNAS CON CARACTERES ESPECIALES ===")
 problematic_columns = [col for col in df.columns if 'Ã' in col or 'â' in col]
 print(f"Columnas con encoding problemático: {len(problematic_columns)}")
 for col in problematic_columns[:5]:
-    print(f" - {col}")   # ✅ ahora bien indentado
+    print(f" - {col}")   # ahora bien indentado
 
 # -----------------------------
 # Corrección de caracteres
