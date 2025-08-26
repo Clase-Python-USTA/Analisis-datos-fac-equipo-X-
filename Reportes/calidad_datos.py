@@ -25,13 +25,5 @@ print(f"\n=== COLUMNAS CON CARACTERES ESPECIALES ===")
 problematic_columns = [col for col in df.columns if 'Ã' in col or 'â' in col]
 print(f"Columnas con encoding problemático: {len(problematic_columns)}")
 for col in problematic_columns[:5]:
-    print(f" - {col}")
-
-
-# Exportar reporte de faltantes
-missing_info.to_excel("Reportes/reporte_faltantes.xlsx", index=False)
-
-# Exportar dataset limpio
-df_limpio = df.drop_duplicates()
-df_limpio.to_excel("Reportes/base_limpia.xlsx", index=False)
+    print(f"- {col}")
 
