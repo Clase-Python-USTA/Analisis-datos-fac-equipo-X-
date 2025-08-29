@@ -106,6 +106,13 @@ Se incluyen visualizaciones que facilitan la interpretación de los resultados y
 
 ![Relación entre Hijos y Tener Pareja Estable](https://github.com/Suarez5479/Analisis-datos-fac-equipo-X-/blob/main/Reportes/Analisis%20familiar/Relacion%20entre%20Hijos%20y%20Tener%20Pareja%20Estable.png?raw=true)
 
+### Porcentajes de HIJOS vs RELACION_PAREJA_ESTABLE
+
+| HIJOS | RELACION_PAREJA_ESTABLE: No (%) | RELACION_PAREJA_ESTABLE: Sí (%) | Total |
+|-------|---------------------------------|--------------------------------|-------|
+| no    | 41.0                            | 59.0                           | 2754  |
+| sí    | 15.0                            | 85.0                           | 3669  |
+| All   | 26.1                            | 73.9                           | 6423  |
 
 - Tener hijos está **fuertemente asociado a tener una relación de pareja estable**.  
 - La mayoría de las personas **tienen madre viva**, independientemente de tener hijos.  
@@ -124,6 +131,13 @@ Se incluyen visualizaciones que facilitan la interpretación de los resultados y
 ![Relación entre categoría y maltrato intrafamiliar](https://github.com/Suarez5479/Analisis-datos-fac-equipo-X-/blob/main/Reportes/Analisis%20familiar/categoria%20y%20maltrato.png?raw=true)
 
 
+### Porcentajes por categoría
+
+| CATEGORIA   | No (%) | Sí (%) |
+|------------|--------|--------|
+| civil      | 92.6   | 7.4    |
+| oficial    | 96.8   | 3.2    |
+| suboficial | 96.3   | 3.7    |
 
 
 Los casos de maltrato intrafamiliar son mucho más frecuentes en la categoría civil que en las categorías oficial y suboficial .
