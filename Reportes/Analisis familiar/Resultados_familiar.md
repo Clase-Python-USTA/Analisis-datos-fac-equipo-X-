@@ -180,3 +180,16 @@ La gran mayoría de personas tienen madre viva, independientemente de si tienen 
 
 Entre quienes tienen hijos, hay un mayor número de personas cuyo padre ha fallecido en comparación con quienes no tienen hijos. Esto indica que, en este grupo, tener hijos está asociado a una mayor frecuencia de no tener padre vivo.
 
+## analisis categoria y maltrato intrafamiliar
+
+![Relación entre categoría y maltrato intrafamiliar](https://github.com/Suarez5479/Analisis-datos-fac-equipo-X-/blob/main/Reportes/Analisis%20familiar/categoria%20y%20maltrato.png?raw=true)
+
+
+
+
+Los casos de maltrato intrafamiliar son mucho más frecuentes en la categoría civil que en las categorías oficial y suboficial .
+
+Las categorías oficiales y suboficiales tienen una baja incidencia de maltrato intrafamiliar en comparación con la categoría civil .
+
+
+
