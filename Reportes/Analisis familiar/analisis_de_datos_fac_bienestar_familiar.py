@@ -195,3 +195,19 @@ plt.xlabel("¿Tiene Hijos?")
 plt.ylabel("Número de Personas")
 plt.xticks(rotation=0)
 plt.show()
+
+"""Relacion entre categoria y maltrato intrafamiliar"""
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Gráfico de barras agrupadas por CATEGORIA
+cruce_graf = pd.crosstab(df['CATEGORIA'], df['MALTRATO_INTRAFAMILIAR'])
+cruce_graf.plot(kind="bar", figsize=(8,5))
+
+plt.title("Relación entre Categoría y Maltrato Intrafamiliar")
+plt.xlabel("Categoría")
+plt.ylabel("Número de Personas")
+plt.xticks(rotation=0)
+plt.legend(title="Maltrato Intrafamiliar")
+plt.show()
