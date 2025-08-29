@@ -11,30 +11,64 @@
 
 # Calidad de Datos
 
-## 1. ¿Cuál es el porcentaje de datos vacíos en la base de datos?  
+# Informe de Resultados Obtenidos  
 
-El análisis muestra que la base de datos presenta un **59.29% de vacíos**. Sin embargo, es importante precisar que el **96% de estos registros vacíos corresponden a casos en los que los participantes habían seleccionado previamente la opción “No responde” en una columna asociada**, lo que evidencia que no se trata necesariamente de omisiones aleatorias, sino de una consecuencia directa de la lógica de las preguntas.  
-
----
-
-## 2. ¿Dónde se concentran los datos faltantes?  
-
-La mayor concentración de datos faltantes se encuentra en las variables asociadas a las preguntas condicionales. Es decir, cuando un participante selecciona “No responde” en una pregunta de filtro, automáticamente se generan vacíos en la(s) pregunta(s) siguiente(s) vinculadas a esa condición. Esto indica que los vacíos no siempre corresponden a errores de diligenciamiento, sino al diseño de la encuesta.  
-
----
-
-## 3. ¿Qué implicaciones tiene la presencia de estos vacíos?  
-
-La alta proporción de vacíos debe interpretarse con cautela. Por un lado, refleja la existencia de saltos lógicos en la encuesta que pueden inducir la ausencia de información. Por otro, puede afectar los análisis posteriores si no se distingue entre **vacíos reales** (omisiones de respuesta) y **vacíos esperados** (derivados de la selección de “No responde”).  
+**Base de Datos:** Fuerza Aérea Colombiana (FAC)  
+**Responsable:**  
+- Ángela Rico: Análisis de demografía básica.  
+- Ángela Tatiana Orjuela: Análisis de estructura familiar.  
+- Karen Juliana Suárez Cruz: Calidad de datos  
+**Fecha:** 29/08/2025  
 
 ---
 
-## 4. ¿Qué recomendaciones se proponen?  
+## 1. ¿Qué columnas tienen más datos faltantes?  
 
-1. Diferenciar claramente en la base de datos los vacíos que corresponden a **omisiones** de aquellos que son **producto del diseño de la encuesta**.  
-2. En análisis posteriores, considerar los “No responde” como una categoría válida y no como un vacío.  
-3. Evaluar si es necesario ajustar el diseño de la encuesta para reducir la generación automática de vacíos.  
-4. Documentar de manera explícita en los informes el motivo por el cual se generan los vacíos, con el fin de evitar interpretaciones erróneas en análisis futuros.  
+Tras el **re-análisis post-limpieza**, las columnas con mayor número de vacíos son:  
+
+| Columna                                | Datos Faltantes | % |
+|----------------------------------------|-----------------|----|
+| NUMERO_PERSONAS_APORTE_SOSTENIMIENTO2  | 3928            | 61.16% |
+| NUMERO_HABITAN_VIVIENDA2               | 3808            | 59.29% |
+| NUMERO_HIJOS                           | 463             | 7.21% |
+| HIJOS_EN_HOGAR                         | 446             | 6.94% |
+| EDAD_RANGO_PADRE                       | 142             | 2.21% |
+| EDAD_PADRE                             | 142             | 2.21% |
+| EDAD_RANGO_MADRE                       | 139             | 2.16% |
+| EDAD_MADRE                             | 135             | 2.10% |
+| EDAD2                                  | 13              | 0.20% |
+| EDAD_RANGO                             | 13              | 0.20% |
+
+📌 Es importante resaltar que, en el caso de **NUMERO_HABITAN_VIVIENDA2**, el **96% de los vacíos corresponden a registros donde los participantes habían marcado previamente "No responde" en una columna asociada**. Esto evidencia que los faltantes no son errores de captura, sino consecuencia lógica de la respuesta previa.  
+
+---
+
+## 2. ¿Hay registros duplicados?  
+
+No se encontraron registros duplicados en la base de datos.  
+Esto asegura que **cada fila corresponde a un individuo único**, aumentando la confiabilidad del análisis posterior.  
+
+---
+
+## 3. ¿Qué problemas de encoding se detectan?  
+
+Durante la revisión se identificaron inconsistencias en la codificación de caracteres en variables categóricas, por ejemplo:  
+
+- `"TECNOLÃ“GICO"` en lugar de `"TECNOLÓGICO"`.  
+
+Estos errores pueden generar categorías redundantes y afectar los análisis de frecuencia.  
+Para solucionarlo se aplicó un proceso de **normalización de texto**, estandarizando acentos y eliminando caracteres especiales.  
+
+---
+
+## Conclusiones  
+
+1. La depuración permitió reducir los vacíos genuinos en variables clave, mejorando la calidad de la base.  
+2. Los faltantes detectados en variables como *NUMERO_HABITAN_VIVIENDA2* no son aleatorios, sino coherentes con respuestas previas de “No responde”.  
+3. La ausencia de duplicados garantiza que cada registro corresponde a un individuo único.  
+4. La corrección de problemas de encoding aumenta la consistencia de las variables categóricas.  
+
+---
 
 ---
 
