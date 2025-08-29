@@ -131,20 +131,66 @@ for col in text_cols:
         lambda x: canon_map.get(x, x) if isinstance(x, str) else x
     )
 
-# ================== 7. IMPUTACIÓN LÓGICA DE DATOS FALTANTES ==================
-# Regla: si en la columna 'HIJOS' aparece 0 (no tiene hijos) 
-# y en la columna 'NUMERO_HIJOS' está vacío, entonces se imputa con 0.
 
+# ================== 6. DEPURACION ==================
 if 'HIJOS' in df_corregido.columns and 'NUMERO_HIJOS' in df_corregido.columns:
-    # Contamos cuántos cambios se van a realizar
-    cambios = ((df_corregido['HIJOS'] == 0) & (df_corregido['NUMERO_HIJOS'].isna())).sum()
+    # Cuenta cuántos registros cumplen la condición
+    cambios = ((df_corregido['HIJOS'] == "no") & (df_corregido['NUMERO_HIJOS'].isna())).sum()
     
     print(f"\n=== IMPUTACIÓN LÓGICA: HIJOS vs NUMERO_HIJOS ===")
     print(f"Registros a corregir: {cambios}")
     
-    # Realizamos la imputación
-    df_corregido.loc[(df_corregido['HIJOS'] == 0) & (df_corregido['NUMERO_HIJOS'].isna()), 'NUMERO_HIJOS'] = 0
+    # Aplica la corrección: donde HIJOS = "no" y NUMERO_HIJOS está vacío, pone un 0
+    df_corregido.loc[
+        (df_corregido['HIJOS'] == "no") & (df_corregido['NUMERO_HIJOS'].isna()), 
+        'NUMERO_HIJOS'
+    ] = 0
+    print(f"Corrección aplicada.")
 
-# ================== 8. GUARDAR DATASET FINAL ==================
-df_corregido.to_excel("datos/JEFAB_2024_corregido_final.xlsx", index=False)
-print("\n>>> Dataset final guardado como 'datos/JEFAB_2024_corregido_final.xlsx'")
+if 'HIJOS' in df_corregido.columns and 'HIJOS_EN_HOGAR' in df_corregido.columns:
+    # Cuenta cuántos registros cumplen la condición
+    cambios = ((df_corregido['HIJOS'] == "no") & (df_corregido['HIJOS_EN_HOGAR'].isna())).sum()
+    
+    print(f"\n=== IMPUTACIÓN LÓGICA: HIJOS vs HIJOS_EN_HOGAR ===")
+    print(f"Registros a corregir: {cambios}")
+    
+    # Aplica la corrección: donde HIJOS = "no" y HIJOS_EN_HOGAR está vacío, pone un 0
+    df_corregido.loc[
+        (df_corregido['HIJOS'] == "no") & (df_corregido['HIJOS_EN_HOGAR'].isna()), 
+        'HIJOS_EN_HOGAR'
+    ] = 0
+    
+    print("Corrección aplicada.")
+
+# --- IMPUTACIÓN MADRE ---
+if 'MADRE_VIVE' in df_corregido.columns:
+    # EDAD_MADRE
+    cambios_madre = ((df_corregido['MADRE_VIVE'] == "no") & (df_corregido['EDAD_MADRE'].isna())).sum()
+    df_corregido.loc[(df_corregido['MADRE_VIVE'] == "no") & (df_corregido['EDAD_MADRE'].isna()), 'EDAD_MADRE'] = 0
+    print(f"\n=== IMPUTACIÓN LÓGICA: MADRE_VIVE vs EDAD_MADRE ===")
+    print(f"Registros corregidos: {cambios_madre}")
+
+    # EDAD_RANGO_MADRE
+    cambios_rango_madre = ((df_corregido['MADRE_VIVE'] == "no") & (df_corregido['EDAD_RANGO_MADRE'].isna())).sum()
+    df_corregido.loc[(df_corregido['MADRE_VIVE'] == "no") & (df_corregido['EDAD_RANGO_MADRE'].isna()), 'EDAD_RANGO_MADRE'] = 0
+    print(f"\n=== IMPUTACIÓN LÓGICA: MADRE_VIVE vs EDAD_RANGO_MADRE ===")
+    print(f"Registros corregidos: {cambios_rango_madre}")
+
+# --- IMPUTACIÓN PADRE ---
+if 'PADRE_VIVE' in df_corregido.columns:
+    # EDAD_PADRE
+    cambios_padre = ((df_corregido['PADRE_VIVE'] == "no") & (df_corregido['EDAD_PADRE'].isna())).sum()
+    df_corregido.loc[(df_corregido['PADRE_VIVE'] == "no") & (df_corregido['EDAD_PADRE'].isna()), 'EDAD_PADRE'] = 0
+    print(f"\n=== IMPUTACIÓN LÓGICA: PADRE_VIVE vs EDAD_PADRE ===")
+    print(f"Registros corregidos: {cambios_padre}")
+
+    # EDAD_RANGO_PADRE
+    cambios_rango_padre = ((df_corregido['PADRE_VIVE'] == "no") & (df_corregido['EDAD_RANGO_PADRE'].isna())).sum()
+    df_corregido.loc[(df_corregido['PADRE_VIVE'] == "no") & (df_corregido['EDAD_RANGO_PADRE'].isna()), 'EDAD_RANGO_PADRE'] = 0
+    print(f"\n=== IMPUTACIÓN LÓGICA: PADRE_VIVE vs EDAD_RANGO_PADRE ===")
+    print(f"Registros corregidos: {cambios_rango_padre}")
+
+
+# ================== 7. GUARDAR RESULTADO ==================
+df_corregido.to_excel("datos/JEFAB_2024_corregido.xlsx", index=False)
+print("\n>>> Dataset corregido guardado como 'datos/JEFAB_2024_corregido.xlsx'")
