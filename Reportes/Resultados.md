@@ -1,3 +1,42 @@
+# Informe de Resultados Obtenidos  
+
+**Base de Datos:** Fuerza Aérea Colombiana (FAC)  
+**Responsable:**  
+- Ángela Rico: Análisis de demografía básica.  
+- Ángela Tatiana Orjuela: Análisis de estructura familiar.  
+- Karen Juliana Suárez Cruz: Calidad de datos  
+**Fecha:** 29/08/2025  
+
+---
+
+## 1. ¿Cuál es el porcentaje de datos vacíos en la base de datos?  
+
+El análisis muestra que la base de datos presenta un **59.29% de vacíos**. Sin embargo, es importante precisar que el **96% de estos registros vacíos corresponden a casos en los que los participantes habían seleccionado previamente la opción “No responde” en una columna asociada**, lo que evidencia que no se trata necesariamente de omisiones aleatorias, sino de una consecuencia directa de la lógica de las preguntas.  
+
+---
+
+## 2. ¿Dónde se concentran los datos faltantes?  
+
+La mayor concentración de datos faltantes se encuentra en las variables asociadas a las preguntas condicionales. Es decir, cuando un participante selecciona “No responde” en una pregunta de filtro, automáticamente se generan vacíos en la(s) pregunta(s) siguiente(s) vinculadas a esa condición. Esto indica que los vacíos no siempre corresponden a errores de diligenciamiento, sino al diseño de la encuesta.  
+
+---
+
+## 3. ¿Qué implicaciones tiene la presencia de estos vacíos?  
+
+La alta proporción de vacíos debe interpretarse con cautela. Por un lado, refleja la existencia de saltos lógicos en la encuesta que pueden inducir la ausencia de información. Por otro, puede afectar los análisis posteriores si no se distingue entre **vacíos reales** (omisiones de respuesta) y **vacíos esperados** (derivados de la selección de “No responde”).  
+
+---
+
+## 4. ¿Qué recomendaciones se proponen?  
+
+1. Diferenciar claramente en la base de datos los vacíos que corresponden a **omisiones** de aquellos que son **producto del diseño de la encuesta**.  
+2. En análisis posteriores, considerar los “No responde” como una categoría válida y no como un vacío.  
+3. Evaluar si es necesario ajustar el diseño de la encuesta para reducir la generación automática de vacíos.  
+4. Documentar de manera explícita en los informes el motivo por el cual se generan los vacíos, con el fin de evitar interpretaciones erróneas en análisis futuros.  
+
+---
+
+
 # Análisis Familiar 
 
 Este proyecto realiza un análisis exploratorio de datos (EDA) centrado en variables sociodemográficas y familiares.  
