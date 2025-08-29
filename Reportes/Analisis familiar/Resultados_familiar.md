@@ -126,9 +126,57 @@ Este script realiza un análisis exploratorio de datos (EDA) sobre información 
 
 ## Distribución de Categoría por Estado Civil
 
-![Gráfica Hijos vs Vivienda Propia](<img width="989" height="590" alt="image" src="https://github.com/user-attachments/assets/5a2023fe-097d-47fb-97fb-fcc7daf0a3f1" />
-)
+![categoria por estado civil](https://github.com/user-attachments/assets/5a2023fe-097d-47fb-97fb-fcc7daf0a3f1)
 
 - En **casados y divorciados**, predomina la categoría **suboficial**, aunque la categoría civil también tiene un peso importante.  
 - En **separados**, la mayoría pertenece a la categoría **civil**, seguida por suboficial.  
-- Entre los **viudos/as** predomina ampliamente la categoría **civil (más del 80%)**, mientras que en los **solteros/as** hay mayor equilibrio, destacando **suboficial y oficial**.  
+- Entre los **viudos/as** predomina ampliamente la categoría **civil (más del 80%)**, mientras que en los **solteros/as** hay mayor equilibrio, destacando **suboficial y oficial**.
+
+
+## Analisis de estado civil y edad
+
+| Estado Civil | Porcentaje |
+|--------------|------------|
+| Casado       | 39.69%     |
+| Divorciado   | 40.35%     |
+| Separado     | 40.88%     |
+| Soltero/a    | 30.22%     |
+| Viudo/a      | 47.56%     |
+
+**Interpretación:**  
+La tabla muestra el porcentaje de personas con vivienda propia según su estado civil. Se observa que los viudos/as presentan el porcentaje más alto (47.56%), mientras que los solteros/as tienen el porcentaje más bajo (30.22%). Los casados, divorciados y separados se mantienen en un rango similar (aprox. 39–41%), lo que sugiere que el estado civil podría influir en la probabilidad de tener vivienda propia.
+
+
+
+## Analisis de maltrato intrafamiliar
+
+![Relación entre Habitar Vivienda Familiar y Maltrato Intrafamiliar](https://github.com/user-attachments/assets/96d24380-3647-45fb-936c-ca44bf9fab31)
+
+**Interpretación:**  
+Se observa que la mayoría de las personas no habitan en vivienda familiar y que los casos de maltrato intrafamiliar son menores en comparación con los que no presentan maltrato. Entre quienes sí habitan en vivienda familiar, hay un número menor de casos, pero los casos de maltrato intrafamiliar están presentes. Esto indica que el maltrato intrafamiliar ocurre tanto en quienes habitan como en quienes no habitan en vivienda familiar.
+
+
+
+
+## Relacion entre hijos y tener pareja estable
+
+![Relación entre Hijos y Tener Pareja Estable](https://github.com/Suarez5479/Analisis-datos-fac-equipo-X-/blob/main/Reportes/Analisis%20familiar/Relacion%20entre%20Hijos%20y%20Tener%20Pareja%20Estable.png?raw=true)
+
+
+**Interpretación:**  
+La presencia de hijos está fuertemente asociada a tener una relación de pareja estable. La mayoría de quienes tienen hijos reportan tener pareja estable, mientras que entre quienes no tienen hijos, la distribución entre tener o no pareja estable es más equilibrada.
+
+
+## Analisis fallecimiento padres
+
+
+![Relación entre Hijos y si Madre o Padre Vive](https://github.com/Suarez5479/Analisis-datos-fac-equipo-X-/blob/main/Reportes/Analisis%20familiar/Relacion%20entre%20Hijos%20y%20si%20Madre%20o%20Padre%20Vive.png?raw=true)
+
+**Relación entre Hijos y si Madre Vive**
+
+La gran mayoría de personas tienen madre viva, independientemente de si tienen hijos o no. No se observa una diferencia marcada entre tener o no hijos respecto a que la madre viva.
+
+**Relación entre Hijos y si Padre Vive**
+
+Entre quienes tienen hijos, hay un mayor número de personas cuyo padre ha fallecido en comparación con quienes no tienen hijos. Esto indica que, en este grupo, tener hijos está asociado a una mayor frecuencia de no tener padre vivo.
+
