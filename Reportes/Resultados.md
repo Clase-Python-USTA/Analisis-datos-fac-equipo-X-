@@ -95,6 +95,19 @@ Se incluyen visualizaciones que facilitan la interpretación de los resultados y
 - La mayoría del personal **tiene hijos (3669 personas, ~57%)**.  
 - Tener hijos está asociado a **mayor probabilidad de vivienda propia**, aunque **no implica necesariamente mayor convivencia con la familia**.
 
+## Analisis hijos vivienda propia
+
+
+![Gráfica Hijos vs Vivienda Propia](https://github.com/Suarez5479/Analisis-datos-fac-equipo-X-/blob/main/Reportes/Analisis%20familiar/Relacion%20entre%20Hijos%20y%20Vivienda%20Propia.png?raw=true)
+
+
+
+### Interpretación
+- Entre quienes **no tienen hijos**, la mayoría no posee vivienda propia (~75%).  
+- Más del **55% de quienes tienen hijos sí cuentan con vivienda propia**.  
+- Esto indica que **tener hijos está asociado a una mayor probabilidad de adquirir vivienda**.
+
+
 ## Convivencia Familiar y Maltrato intrafamiliar
 
 ![Relación entre Habitar Vivienda Familiar y Maltrato Intrafamiliar](https://github.com/user-attachments/assets/96d24380-3647-45fb-936c-ca44bf9fab31)
@@ -138,14 +151,11 @@ Los casos de maltrato intrafamiliar son mucho más frecuentes en la categoría c
 
 Las categorías oficiales y suboficiales tienen una baja incidencia de maltrato intrafamiliar en comparación con la categoría civil .
 
-## Analisis hijos vivienda propia
+## Distribución de Categoría por Estado Civil
 
+![categoria por estado civil](https://github.com/user-attachments/assets/5a2023fe-097d-47fb-97fb-fcc7daf0a3f1)
 
-![Gráfica Hijos vs Vivienda Propia](https://github.com/Suarez5479/Analisis-datos-fac-equipo-X-/blob/main/Reportes/Analisis%20familiar/Relacion%20entre%20Hijos%20y%20Vivienda%20Propia.png?raw=true)
-
-
-
-### Interpretación
-- Entre quienes **no tienen hijos**, la mayoría no posee vivienda propia (~75%).  
-- Más del **55% de quienes tienen hijos sí cuentan con vivienda propia**.  
-- Esto indica que **tener hijos está asociado a una mayor probabilidad de adquirir vivienda**.
+- En **casados y divorciados**, predomina la categoría **suboficial**, aunque la categoría civil también tiene un peso importante.  
+- En **separados**, la mayoría pertenece a la categoría **civil**, seguida por suboficial.  
+- Entre los **viudos/as** predomina ampliamente la categoría **civil (más del 80%)**, mientras que en los **solteros/as** hay mayor equilibrio, destacando **suboficial y oficial**.
+- 
