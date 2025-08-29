@@ -36,3 +36,21 @@ Este script realiza un análisis exploratorio de datos (EDA) sobre información 
 # Tecnologías utilizadas
 - **Pandas** → manipulación y análisis de datos.  
 - **Matplotlib** → creación de gráficas y visualizaciones.
+
+# Resultados
+
+## Análisis Estado Civil
+
+### Distribución absoluta y porcentual
+| Estado Civil | Frecuencia | Porcentaje |
+|--------------|------------|------------|
+| Casado       | 3889       | 60.55%     |
+| Soltero/a    | 2084       | 32.45%     |
+| Divorciado   | 250        | 3.89%      |
+| Separado     | 161        | 2.51%      |
+| Viudo/a      | 39         | 0.61%      |
+
+### Interpretación
+- La mayoría de las personas encuestadas se encuentran **casadas (60.55%)**, seguidas por **solteros/as (32.45%)**.  
+- Los estados civiles de **divorciado, separado y viudo/a** tienen una participación mucho menor (menos del 7% en total).  
+
