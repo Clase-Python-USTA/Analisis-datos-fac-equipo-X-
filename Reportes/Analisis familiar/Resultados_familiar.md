@@ -52,5 +52,83 @@ Este script realiza un análisis exploratorio de datos (EDA) sobre información 
 
 ### Interpretación
 - La mayoría de las personas encuestadas se encuentran **casadas (60.55%)**, seguidas por **solteros/as (32.45%)**.  
-- Los estados civiles de **divorciado, separado y viudo/a** tienen una participación mucho menor (menos del 7% en total).  
+- Los estados civiles de **divorciado, separado y viudo/a** tienen una participación mucho menor (menos del 7% en total).
 
+## Análisis de Hijos
+
+### Distribución absoluta
+| Tiene Hijos | Frecuencia |
+|-------------|------------|
+| Sí          | 3669       |
+| No          | 2754       |
+
+### Interpretación
+- La mayoría del personal encuestado **tiene hijos (3669 personas, ~57%)**.  
+- Un **43% no tiene hijos (2754 personas)**, lo que muestra una proporción relativamente equilibrada, aunque predominan quienes sí tienen hijos.  
+
+
+ ## Análisis de Convivencia Familiar
+
+### Distribución absoluta
+| Habita con familia | Frecuencia |
+|---------------------|------------|
+| No                  | 5238       |
+| Sí                  | 1185       |
+
+### Distribución porcentual
+| Habita con familia | Porcentaje |
+|---------------------|------------|
+| No                  | 81.56%     |
+| Sí                  | 18.44%     |
+
+### Interpretación
+- La gran mayoría del personal **no habita con su familia (81.56%)**.  
+- Solo un **18.44% sí convive con su familia**, lo que evidencia una diferencia considerable.  
+
+
+
+## Cruce Hijos y Convivencia Familiar
+
+### Tabla de contingencia (frecuencias absolutas)
+| Hijos | No habita con familia | Sí habita con familia | Total |
+|-------|------------------------|------------------------|-------|
+| No    | 2118                  | 636                    | 2754  |
+| Sí    | 3120                  | 549                    | 3669  |
+| **Total** | **5238**              | **1185**                | **6423** |
+
+### Tabla de porcentajes por fila
+| Hijos | No habita con familia | Sí habita con familia |
+|-------|------------------------|------------------------|
+| No    | 76.91%                | 23.09%                |
+| Sí    | 85.03%                | 14.97%                |
+
+### Interpretación
+- Entre quienes **no tienen hijos**, el **23.09% convive con su familia**, frente a un **76.91% que no lo hace**.  
+- Entre quienes **sí tienen hijos**, solo el **14.97% habita con su familia**, mientras que la gran mayoría (**85.03%**) no convive con ella.  
+- Esto sugiere que **tener hijos no implica necesariamente mayor convivencia familiar**, incluso se observa lo contrario.  
+
+
+
+
+## Analisis hijos vivienda propia
+
+
+![Gráfica Hijos vs Vivienda Propia](https://github.com/Suarez5479/Analisis-datos-fac-equipo-X-/blob/main/Reportes/Analisis%20familiar/Relacion%20entre%20Hijos%20y%20Vivienda%20Propia.png?raw=true)
+
+
+
+### Interpretación
+- Entre quienes **no tienen hijos**, la mayoría no posee vivienda propia (~75%).  
+- Más del **55% de quienes tienen hijos sí cuentan con vivienda propia**.  
+- Esto indica que **tener hijos está asociado a una mayor probabilidad de adquirir vivienda**.
+
+
+
+## Distribución de Categoría por Estado Civil
+
+![Gráfica Hijos vs Vivienda Propia](<img width="989" height="590" alt="image" src="https://github.com/user-attachments/assets/5a2023fe-097d-47fb-97fb-fcc7daf0a3f1" />
+)
+
+- En **casados y divorciados**, predomina la categoría **suboficial**, aunque la categoría civil también tiene un peso importante.  
+- En **separados**, la mayoría pertenece a la categoría **civil**, seguida por suboficial.  
+- Entre los **viudos/as** predomina ampliamente la categoría **civil (más del 80%)**, mientras que en los **solteros/as** hay mayor equilibrio, destacando **suboficial y oficial**.  
