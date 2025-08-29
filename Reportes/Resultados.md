@@ -39,7 +39,7 @@ Tras el **re-análisis post-limpieza**, las columnas con mayor número de vacío
 | EDAD2                                  | 13              | 0.20% |
 | EDAD_RANGO                             | 13              | 0.20% |
 
-📌 Es importante resaltar que, en el caso de **NUMERO_HABITAN_VIVIENDA2**, el **96% de los vacíos corresponden a registros donde los participantes habían marcado previamente "No responde" en una columna asociada**. Esto evidencia que los faltantes no son errores de captura, sino consecuencia lógica de la respuesta previa.  
+Es importante resaltar que, en el caso de **NUMERO_HABITAN_VIVIENDA2**, el **96% de los vacíos corresponden a registros donde los participantes habían marcado previamente "No responde" en una columna asociada**. Esto evidencia que los faltantes no son errores de captura, sino consecuencia lógica de la respuesta previa.  
 
 ---
 
