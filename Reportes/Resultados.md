@@ -55,5 +55,14 @@ Se incluyen visualizaciones que facilitan la interpretación de los resultados y
 - En cambio, la presencia de **padre vivo** varía: quienes tienen hijos presentan un número significativamente mayor de padres fallecidos comparado con quienes no tienen hijos.  
 - Esto indica que, dentro de la población con hijos, la situación del padre es más diversa y podría influir en la dinámica familiar.
 
+## analisis categoria y maltrato intrafamiliar
 
+![Relación entre categoría y maltrato intrafamiliar](https://github.com/Suarez5479/Analisis-datos-fac-equipo-X-/blob/main/Reportes/Analisis%20familiar/categoria%20y%20maltrato.png?raw=true)
+
+
+
+
+Los casos de maltrato intrafamiliar son mucho más frecuentes en la categoría civil que en las categorías oficial y suboficial .
+
+Las categorías oficiales y suboficiales tienen una baja incidencia de maltrato intrafamiliar en comparación con la categoría civil .
 
