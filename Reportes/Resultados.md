@@ -11,17 +11,6 @@
 
 # Calidad de Datos
 
-# Informe de Resultados Obtenidos  
-
-**Base de Datos:** Fuerza Aérea Colombiana (FAC)  
-**Responsable:**  
-- Ángela Rico: Análisis de demografía básica.  
-- Ángela Tatiana Orjuela: Análisis de estructura familiar.  
-- Karen Juliana Suárez Cruz: Calidad de datos  
-**Fecha:** 29/08/2025  
-
----
-
 ## 1. ¿Qué columnas tienen más datos faltantes?  
 
 Tras el **re-análisis post-limpieza**, las columnas con mayor número de vacíos son:  
