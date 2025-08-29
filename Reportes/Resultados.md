@@ -118,13 +118,7 @@ Se incluyen visualizaciones que facilitan la interpretación de los resultados y
 - La mayoría de las personas **tienen madre viva**, independientemente de tener hijos.  
 - Entre quienes **tienen hijos**, hay más personas cuyo **padre ha fallecido** comparado con quienes no tienen hijos.
 
-## Fallecimiento de los Padres
 
-![Relación entre Hijos y si Madre o Padre Vive](https://github.com/Suarez5479/Analisis-datos-fac-equipo-X-/blob/main/Reportes/Analisis%20familiar/Relacion%20entre%20Hijos%20y%20si%20Madre%20o%20Padre%20Vive.png?raw=true)
-
-- La presencia de **madre viva** es alta en todos los grupos, y no se observa una diferencia importante entre quienes tienen o no hijos.  
-- En cambio, la presencia de **padre vivo** varía: quienes tienen hijos presentan un número significativamente mayor de padres fallecidos comparado con quienes no tienen hijos.  
-- Esto indica que, dentro de la población con hijos, la situación del padre es más diversa y podría influir en la dinámica familiar.
 
 ## analisis categoria y maltrato intrafamiliar
 
@@ -144,3 +138,14 @@ Los casos de maltrato intrafamiliar son mucho más frecuentes en la categoría c
 
 Las categorías oficiales y suboficiales tienen una baja incidencia de maltrato intrafamiliar en comparación con la categoría civil .
 
+## Analisis hijos vivienda propia
+
+
+![Gráfica Hijos vs Vivienda Propia](https://github.com/Suarez5479/Analisis-datos-fac-equipo-X-/blob/main/Reportes/Analisis%20familiar/Relacion%20entre%20Hijos%20y%20Vivienda%20Propia.png?raw=true)
+
+
+
+### Interpretación
+- Entre quienes **no tienen hijos**, la mayoría no posee vivienda propia (~75%).  
+- Más del **55% de quienes tienen hijos sí cuentan con vivienda propia**.  
+- Esto indica que **tener hijos está asociado a una mayor probabilidad de adquirir vivienda**.
