@@ -75,8 +75,8 @@ Un ejemplo fue la variable GRADO, donde las siglas correspondían a rangos milit
 
 Este proyecto se desarrolló de manera colaborativa por nuestro equipo de tres estudiantes, quienes nos organizamos en los siguientes roles:
 
-    - Ángela Rico: Análisis de demografía básica.
-    - Ángela Tatiana Orjuela: Análisis de estructura familiar.
-    - Karen Juliana Suárez Cruz: Calidad de datos
+  - Ángela Rico: Análisis de demografía básica.
+  - Ángela Tatiana Orjuela: Análisis de estructura familiar.
+  - Karen Juliana Suárez Cruz: Calidad de datos
 
 Cada integrante realizó un reporte individual y, posteriormente, se integraron en un informe general con los resultados obtenidos en conjunto y las conclusiones finales. La colaboración se gestionó a través de GitHub, utilizando ramas, commits y pull requests.
