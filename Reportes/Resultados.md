@@ -158,4 +158,3 @@ Las categorías oficiales y suboficiales tienen una baja incidencia de maltrato 
 - En **casados y divorciados**, predomina la categoría **suboficial**, aunque la categoría civil también tiene un peso importante.  
 - En **separados**, la mayoría pertenece a la categoría **civil**, seguida por suboficial.  
 - Entre los **viudos/as** predomina ampliamente la categoría **civil (más del 80%)**, mientras que en los **solteros/as** hay mayor equilibrio, destacando **suboficial y oficial**.
-- 
