@@ -9,6 +9,8 @@
 
 ---
 
+# Calidad de Datos
+
 ## 1. ¿Cuál es el porcentaje de datos vacíos en la base de datos?  
 
 El análisis muestra que la base de datos presenta un **59.29% de vacíos**. Sin embargo, es importante precisar que el **96% de estos registros vacíos corresponden a casos en los que los participantes habían seleccionado previamente la opción “No responde” en una columna asociada**, lo que evidencia que no se trata necesariamente de omisiones aleatorias, sino de una consecuencia directa de la lógica de las preguntas.  
