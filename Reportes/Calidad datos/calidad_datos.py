@@ -17,6 +17,9 @@ import re   # Import necesario para expresiones regulares
 # ================== 1. CARGA DE DATOS ==================
 df = pd.read_excel('datos/JEFAB_2024.xlsx')
 
+print(f"\n=== INFORMACIÓN GENERAL ===")
+print(f"Filas: {df.shape[0]} | Columnas: {df.shape[1]}")
+
 # ================== 2. ANÁLISIS INICIAL ==================
 print("=== ANÁLISIS DE DATOS FALTANTES ===")
 missing_data = df.isnull().sum()
