@@ -84,6 +84,18 @@ Se incluyen visualizaciones que facilitan la interpretación de los resultados y
 - Los estados de **divorciado, separado y viudo/a** son minoritarios.  
 - Los **viudos/as** presentan el porcentaje más alto de vivienda propia (47.56%), mientras que los **solteros/as** tienen el porcentaje más bajo (30.22%).
 
+### Edad promedio según ESTADO_CIVIL
+
+| ESTADO_CIVIL | Edad Promedio |
+|--------------|---------------|
+| casado       | 39.69         |
+| divorciado   | 40.35         |
+| separado     | 40.88         |
+| soltero/a    | 30.22         |
+| viudo/a      | 47.56         |
+
+
+
 ## Hijos
 
 | Tiene Hijos | Frecuencia |
