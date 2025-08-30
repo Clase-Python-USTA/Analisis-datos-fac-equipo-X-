@@ -2,7 +2,7 @@
 
 **Base de Datos:** Fuerza Aérea Colombiana (FAC)  
 **Responsable:**  
-- Ángela Rico: Análisis de demografía básica.  
+- Angela Rico: Análisis de demografía básica.  
 - Ángela Tatiana Orjuela: Análisis de estructura familiar.  
 - Karen Juliana Suárez Cruz: Calidad de datos  
 **Fecha:** 29/08/2025  
@@ -58,6 +58,112 @@ Para solucionarlo se aplicó un proceso de **normalización de texto**, estandar
 4. La corrección de problemas de encoding aumenta la consistencia de las variables categóricas.  
 
 ---
+
+# Análisis Demográfico
+
+_Basado en analisis_demografico.py y sus salidas (prints y figuras)._
+
+## Datos 
+- Entrada: JEFAB_2024_corregido.xlsx.
+- Variables usadas por el script: EDAD2, SEXO, CATEGORIA, GRADO, ESTADO_CIVIL, NIVEL_EDUCATIVO.
+- “Rango de edad más común”: pd.cut(EDAD2, bins=10) → 10 intervalos de *ancho igual* entre edad mínima y máxima.
+- En cruces con *GRADO* y en *NIVEL_EDUCATIVO × GRADO, el script **excluye* "no responde" antes de contar/graficar.
+
+## Indicadores 
+- *Edad mínima*: 18 años.  
+- *Edad máxima*: 69 años.  
+- *Edad promedio*: 36.7 años.  
+- *Rango de edad más común* (bins=10): *25–34 años*.  
+- *Distribución por sexo: HOMBRES = **4470; MUJERES = **1953*.  
+- *Grado militar más frecuente* (moda de GRADO sin “no responde”): *T3 — Suboficial Técnico Tercero (Suboficial)*.
+
+
+## Estructura por edad
+
+*Evidencia:*  
+![Distribución de la edad](../Reportes/analisis%20demografico/grafico_distribucion_edad.png)
+
+
+Se denota un histograma unimodal con mayor densidad en edades medias; los extremos son minoritarios.  
+*Hallazgo:* define el centro etario del personal hace 2024 y sustenta decisiones operativas (turnos, formación inicial, retiro).
+
+*Edad por género*  
+![Edad por género](../Reportes/analisis%20demografico/grafico_edad_por_genero.png)
+
+- Mediana femenina visualmente algo mayor, con más dispersión en comparación a la masculina, pero menos atípicos
+
+*Edad por categoría*  
+![Edad por categoría](../Reportes/analisis%20demografico/grafico_edad_por_categoria.png)
+
+- *CIVIL* muestra mediana y dispersión más altas que *OFICIAL* y *SUBOFICIAL* como se observa en posición de la línea de mediana y altura de la caja en el boxplot.
+
+
+## Sexo
+
+*Evidencia:*  
+![Distribución por género](../Reportes/analisis%20demografico/grafico_distribucion_genero.png)
+
+Existe un predominio claro de HOMBRES (coincide con los conteos impresos).  
+*Hallazgo:* la estructura está lejos de la paridad y condiciona composición por grados y áreas dentro del contexto de la FAC.
+
+
+## Categoría y grado
+
+*Distribución por categoría*  
+![Distribución por categoría](../Reportes/analisis%20demografico/grafico_distribucion_categoria.png)
+
+- *SUBOFICIAL* es la categoría más numerosa; luego *CIVIL* y *OFICIAL*.  
+- Implicación: la base operativa se concentra en suboficiales.
+
+*Distribución por grado (sin “no responde”)*  
+![Distribución por grado](../Reportes/analisis%20demografico/grafico_distribucion_grado.png)
+
+- Pirámide jerárquica típica: base amplia en *T3 — Suboficial Técnico Tercero (Suboficial), **T2 — Suboficial Técnico Segundo (Suboficial)* y *T1 — Suboficial Técnico Primero (Suboficial); cúpula muy reducida (TC — Teniente Coronel (Oficial), **CR — Coronel (Oficial), **BG — Brigadier General (Oficial), **MG — Mayor General (Oficial), **GR — General (Oficial)*).
+- Justificación: Alturas decrecientes hacia los grados superiores, normal dado el contexto de los datos.
+
+*Grado × género (sin “no responde”)*  
+![Grado por género](../Reportes/analisis%20demografico/grafico_grado_por_genero.png)
+
+- *Hallazgo:* En casi todos los grados la barra de *HOMBRES* es mayor; la brecha de genero crece hacia la cúpula.  
+
+
+## Estado civil
+
+*Evidencia:*  
+![Distribución por estado civil](../Reportes/analisis%20demografico/grafico_distribucion_estado_civil.png) 
+
+[Estado civil por género](../Reportes/analisis%20demografico/grafico_estado_civil_por_genero.png)
+
+*Lectura:* *CASADO* domina en el total y dentro de cada sexo; *SOLTERO/A* es el segundo grupo.  
+*Hallazgo:* implica demanda estable de prestaciones familiares y conciliación.
+
+
+## Nivel educativo
+
+*Distribución total*  
+[Distribución por nivel educativo](../Reportes/analisis%20demografico/grafico_distribucion_nivel_educativo.png)
+
+- Predominan *TÉCNICO/TECNOLÓGICO* y *PROFESIONAL*; posgrados existen pero con menor volumen.
+
+*Nivel educativo × grado (ambos sin “no responde”)*  
+![Nivel educativo por grado](../Reportes/analisis%20demografico/grafico_nivel_educativo_por_grado.png)
+
+- Los grados de base (*AT — Aerotécnico (Suboficial)* a *T3 — Suboficial Técnico Tercero (Suboficial)) concentran **técnico/tecnológico*.  
+- En mandos (*CT — Capitán (Oficial), **MY — Mayor (Oficial), **TC — Teniente Coronel (Oficial)) crece **profesional* y aparecen *posgrados*.  
+
+
+## Síntesis para el contexto FAC
+- *Perfil etario* centrado en 25–34; *CIVIL* es relativamente más mayor.  
+- *Predominio masculino* confirmado por conteos, lo que se ajusta al contexto de la FAC.  
+- *Base institucional* en *SUBOFICIALES* y en grados técnicos intermedios (*T3/T2/T1*).  
+- *Conyugalidad alta*: “CASADO” domina en total y por sexo.  
+- *Capital humano* con base técnico–profesional; posgrados en mandos.
+
+## Notas metodológicas 
+- “Rango de edad más común” proviene de pd.cut(EDAD2, bins=10) (no son tramos demográficos fijos).  
+- En *GRADO* y en *NIVEL_EDUCATIVO × GRADO* se excluye "no responde" antes de tabular y graficar.  
+- Las cifras puntuales impresas (edad media/mín/máx, conteos por sexo, grado modal) deben tomarse tal como aparecen en la consola al ejecutar analisis_demografico.py.
+
 
 ---
 
