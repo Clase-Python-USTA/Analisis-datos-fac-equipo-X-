@@ -14,10 +14,16 @@
 # ================================================================
 
 # ================== 0. IMPORTACIÓN DE LIBRERÍAS ==================
-import pandas as pd       # Manejo de DataFrames
-import numpy as np        # Operaciones numéricas y valores NaN
-import unicodedata        # Normalización y eliminación de acentos
-import re                 # Expresiones regulares (limpieza de strings)
+import pandas as pd
+import numpy as np
+import unicodedata
+import re
+
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.experimental import enable_iterative_imputer  # habilita IterativeImputer
+from sklearn.impute import IterativeImputer, KNNImputer
 
 # ================== 1. CARGA DE DATOS ==================
 # Se lee la base de datos desde Excel
@@ -189,6 +195,97 @@ if 'PADRE_VIVE' in df_corregido.columns:
     df_corregido.loc[(df_corregido['PADRE_VIVE'] == "no") & (df_corregido['EDAD_RANGO_PADRE'].isna()), 'EDAD_RANGO_PADRE'] = 0
     print(f"Registros corregidos en rango padre: {cambios_rango_padre}")
 
-# ================== 7. GUARDAR RESULTADO ==================
+# ============================================================
+# PASO 7: Imputación avanzada de variables
+# ============================================================
+
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
+import matplotlib.pyplot as plt
+
+# --- 7A. Preparamos columnas numéricas ---
+num_cols = df_corregido.select_dtypes(include=["int64", "float64"]).columns
+df_temp = df_corregido[num_cols].copy()
+
+# --- 7B. Convertir ceros en NaN SOLO si el padre/madre está vivo ---
+mask_padre_vivo = df_corregido["PADRE_VIVE"] == 1
+mask_madre_vivo = df_corregido["MADRE_VIVE"] == 1
+
+for col in ["EDAD_PADRE", "EDAD_RANGO_PADRE"]:
+    if col in df_temp.columns:
+        df_temp.loc[mask_padre_vivo & (df_temp[col] == 0), col] = np.nan
+
+for col in ["EDAD_MADRE", "EDAD_RANGO_MADRE"]:
+    if col in df_temp.columns:
+        df_temp.loc[mask_madre_vivo & (df_temp[col] == 0), col] = np.nan
+
+# --- 7C. Aplicamos MICE ---
+imputer = IterativeImputer(max_iter=10, random_state=42)
+df_imputado = imputer.fit_transform(df_temp)
+
+# Convertimos a DataFrame para mantener nombres y control
+df_imputado = pd.DataFrame(df_imputado, columns=num_cols, index=df_temp.index)
+
+# --- 🚨 7Cbis: Evitar negativos en TODAS las columnas numéricas ---
+df_imputado = df_imputado.clip(lower=0)
+
+# Redondear a enteros
+df_imputado = np.round(df_imputado).astype(int)
+
+# Reemplazamos en la base corregida
+df_corregido[num_cols] = df_imputado
+
+# --- 7D. Restaurar ceros para padres/madres fallecidos ---
+df_corregido.loc[df_corregido["PADRE_VIVE"] == 0, ["EDAD_PADRE", "EDAD_RANGO_PADRE"]] = 0
+df_corregido.loc[df_corregido["MADRE_VIVE"] == 0, ["EDAD_MADRE", "EDAD_RANGO_MADRE"]] = 0
+
+print("\n>>> Imputación MICE aplicada en todas las variables numéricas. Negativos truncados a 0. Cerros preservados en fallecidos.")
+
+# --- 7E. Reconstrucción de rangos después de imputación con MICE ---
+# --- Función para asignar rangos ---
+def edad_a_rango(edad):
+    if pd.isna(edad) or edad == 0:
+        return 0   # fallecido o sin dato
+    elif 18 <= edad <= 22:
+        return "18-22"
+    elif 23 <= edad <= 27:
+        return "23-27"
+    elif 28 <= edad <= 32:
+        return "28-32"
+    elif 33 <= edad <= 37:
+        return "33-37"
+    elif 38 <= edad <= 42:
+        return "38-42"
+    elif 43 <= edad <= 47:
+        return "43-47"
+    elif 48 <= edad <= 52:
+        return "48-52"
+    elif 53 <= edad <= 57:
+        return "53-57"
+    elif 58 <= edad <= 62:
+        return "58-62"
+    else:
+        return "Otro"
+
+# --- Asignar rangos para madres vivas ---
+df_corregido.loc[df_corregido["MADRE_VIVE"] == 1, "EDAD_RANGO_MADRE"] = (
+    df_corregido.loc[df_corregido["MADRE_VIVE"] == 1, "EDAD_MADRE"].apply(edad_a_rango)
+)
+
+# --- Asignar rangos para padres vivos ---
+df_corregido.loc[df_corregido["PADRE_VIVE"] == 1, "EDAD_RANGO_PADRE"] = (
+    df_corregido.loc[df_corregido["PADRE_VIVE"] == 1, "EDAD_PADRE"].apply(edad_a_rango)
+)
+
+# --- Asegurar ceros en fallecidos ---
+df_corregido.loc[df_corregido["MADRE_VIVE"] == 0, ["EDAD_MADRE","EDAD_RANGO_MADRE"]] = 0
+df_corregido.loc[df_corregido["PADRE_VIVE"] == 0, ["EDAD_PADRE","EDAD_RANGO_PADRE"]] = 0
+
+
+
+print("\n>>> Reconstrucción de rangos de edad realizada correctamente.")
+
+
+#  ================== 8. GUARDAR RESULTADO ==================
 df_corregido.to_excel("datos/JEFAB_2024_corregido.xlsx", index=False)
 print("\n>>> Dataset corregido guardado como 'datos/JEFAB_2024_corregido.xlsx'")
