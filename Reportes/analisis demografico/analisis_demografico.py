@@ -766,8 +766,7 @@ class GeneradorGraficosFAC:
         plt.tight_layout()
         plt.savefig(f'10_{categoria}_distribucion_grado_sexo.png', dpi=300, bbox_inches='tight')
         self.figuras_creadas.append(f'10_{categoria}_distribucion_grado_sexo.png')
-        plt.savefig(f'11_suboficial_distribucion_grado_sexo.png', dpi=300, bbox_inches='tight')
-        self.figuras_creadas.append(f'11_suboficial_distribucion_grado_sexo.png')
+        
     
     def _tiene_datos_jerarquicos(self, categoria, grados_orden):
         """Verifica si hay datos suficientes para análisis jerárquico"""
