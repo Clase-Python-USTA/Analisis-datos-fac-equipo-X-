@@ -88,8 +88,22 @@ Se aplicaron reglas de consistencia entre variables relacionadas con el fin de r
 - **PADRE_VIVE y EDAD_PADRE / RANGO_EDAD_PADRE**  
   - Mismo criterio aplicado.  
   - **1.797 registros corregidos.**
- 
-    En esta fase no me limité únicamente a aplicar reglas lógicas, sino que también recurrí a técnicas estadísticas más robustas.  
+
+    En esta fase no me limité únicamente a aplicar reglas lógicas, sino que también recurrí a técnicas estadísticas más robustas.
+
+Después de las correcciones, los porcentajes de datos faltantes se redujeron significativamente:
+
+| Columna                              | Datos Faltantes | Porcentaje |
+|--------------------------------------|----------------|------------|
+| NUMERO_PERSONAS_APORTE_SOSTENIMIENTO2 | 3928           | 61.16%     |
+| NUMERO_HABITAN_VIVIENDA2             | 3808           | 59.29%     |
+| NUMERO_HIJOS                          | 463            | 7.21%      |
+| HIJOS_EN_HOGAR                        | 446            | 6.94%      |
+| EDAD_RANGO_PADRE                      | 142            | 2.21%      |
+| EDAD_PADRE                            | 142            | 2.21%      |
+| EDAD_RANGO_MADRE                      | 139            | 2.16%      |
+| EDAD_MADRE                            | 135            | 2.10%      |
+
 
 Primero, como ya conté, realicé las imputaciones simples: completé con cero los casos donde `HIJOS = "no"` y `NUMERO_HIJOS` estaba vacío, lo mismo con `HIJOS_EN_HOGAR`. También ajusté los registros de los padres y madres fallecidos, asignando cero en las variables de edad cuando correspondía. Estos pasos me ayudaron a alinear la información básica y reducir incoherencias.  
 
@@ -112,20 +126,6 @@ El resultado fue una base mucho más sólida: las distribuciones de las variable
 
 ---
 
-## Re-análisis post-limpieza
-
-Después de las correcciones, los porcentajes de datos faltantes se redujeron significativamente:
-
-| Columna                              | Datos Faltantes | Porcentaje |
-|--------------------------------------|----------------|------------|
-| NUMERO_PERSONAS_APORTE_SOSTENIMIENTO2 | 3928           | 61.16%     |
-| NUMERO_HABITAN_VIVIENDA2             | 3808           | 59.29%     |
-| NUMERO_HIJOS                          | 463            | 7.21%      |
-| HIJOS_EN_HOGAR                        | 446            | 6.94%      |
-| EDAD_RANGO_PADRE                      | 142            | 2.21%      |
-| EDAD_PADRE                            | 142            | 2.21%      |
-| EDAD_RANGO_MADRE                      | 139            | 2.16%      |
-| EDAD_MADRE                            | 135            | 2.10%      |
 
 En particular, el caso de la columna **NUMERO_PERSONAS_APORTE_SOSTENIMIENTO2** fue el más relevante, pues presenta un nivel de vacíos superior al 61%. Al no existir información complementaria que permitiera reconstruir los datos de manera confiable, la variable perdió valor analítico. Además, en la discusión con el equipo de trabajo se concluyó que esta columna no sería necesaria para los análisis posteriores, por lo que no se optó por ningún proceso de imputación.
 
