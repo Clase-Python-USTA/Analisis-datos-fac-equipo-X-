@@ -104,9 +104,9 @@ print(tabla)
 chi2, p, dof, expected = chi2_contingency(tabla)
 print("\nChi-cuadrado Hijos vs Vivienda Propia: chi2 =", round(chi2,2), "p =", round(p,4))
 if p < 0.05:
-    print("👉 Existe asociación significativa entre Hijos y Vivienda Propia")
+    print(" Existe asociación significativa entre Hijos y Vivienda Propia")
 else:
-    print("👉 No se encontró asociación significativa")
+    print(" No se encontró asociación significativa")
 
 tabla_hijos_vivienda = pd.crosstab(df['HIJOS'], df['VIVIENDA_PROPIA'], normalize='index') * 100
 
