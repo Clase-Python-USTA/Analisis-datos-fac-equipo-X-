@@ -93,10 +93,25 @@ Se aplicaron reglas de consistencia entre variables relacionadas con el fin de r
   - Mismo criterio aplicado.  
   - **1.797 registros corregidos.**
 
-### Resultados
+En esta fase no me limité únicamente a aplicar reglas lógicas, sino que también recurrí a técnicas estadísticas más robustas.  
 
-- Eliminación de gran parte de la incoherencia interna en la base de datos.  
-- Variables familiares más consistentes y listas para análisis posteriores.  
+Primero, como ya conté, realicé las imputaciones simples: completé con cero los casos donde `HIJOS = "no"` y `NUMERO_HIJOS` estaba vacío, lo mismo con `HIJOS_EN_HOGAR`. También ajusté los registros de los padres y madres fallecidos, asignando cero en las variables de edad cuando correspondía. Estos pasos me ayudaron a alinear la información básica y reducir incoherencias.  
+
+Sin embargo, para resolver los faltantes en variables numéricas más complejas, decidí aplicar **MICE (Multivariate Imputation by Chained Equations)**. En el código configuré el `IterativeImputer` con una semilla fija (`random_state = 42`) para asegurar la reproducibilidad de los resultados. Este método lo escogí porque me permite **imputar de manera iterativa cada variable faltante en función de todas las demás**, lo que aprovecha al máximo las correlaciones entre variables.  
+
+En la práctica, MICE funciona construyendo un modelo de regresión para cada variable con datos faltantes y lo actualiza en varias iteraciones. Así, no se rellenan los vacíos con medias globales o medianas que pueden distorsionar la variabilidad, sino que cada imputación está condicionada a la información disponible de los demás campos del individuo.  
+
+Opté por MICE en lugar de usar un método basado en componentes principales (como PCA o ACP) porque mi interés principal era **preservar la estructura original de las variables**, no reducir la dimensionalidad. El PCA es muy útil cuando se quiere sintetizar la información en menos dimensiones, pero al hacerlo se pierde interpretabilidad directa sobre cada variable. En cambio, con MICE mantuve intacto el significado de las variables originales, logrando imputaciones más naturales y fáciles de interpretar en el análisis posterior.  
+
+Además, al trabajar con un dataset sociodemográfico amplio (más de 200 variables) MICE me dio la ventaja de **capturar relaciones complejas entre factores familiares, sociales y educativos** que difícilmente se reflejarían en un promedio simple o en una reducción por componentes.  
+
+Con este procedimiento:  
+- Pude completar prácticamente todos los valores faltantes en variables numéricas.  
+- Trunqué los valores negativos a cero para evitar inconsistencias.  
+- Respeté los ceros reales que representan situaciones lógicas (por ejemplo, padres fallecidos).  
+- Reconstruí coherentemente los rangos de edad de padre y madre con base en las imputaciones numéricas.  
+
+El resultado fue una base mucho más sólida: las distribuciones de las variables imputadas se alinearon con lo esperado, se redujo la proporción de faltantes a menos del 2% en algunos rangos categóricos, y lo más importante, logré mantener la **coherencia semántica** de cada variable.  
 
 ---
 
@@ -193,7 +208,23 @@ Estos outliers no necesariamente representan errores de captura, sino que reflej
 2. Determinar la necesidad de aplicar transformaciones o análisis robustos que minimicen el impacto de estos casos en los modelos estadísticos.  
 3. Comprender mejor los grupos minoritarios dentro de la muestra, que podrían ser relevantes para análisis segmentados o políticas focalizadas.
 
-## 7. Conclusiones
+### 7. Análisis post-imputación 
+
+Después de aplicar la imputación múltiple y reconstruir los rangos de edad, realicé un análisis de validación para evaluar la calidad de los resultados obtenidos.  
+
+Lo primero que noté fue que las principales variables numéricas quedaron completas, sin valores faltantes. Sus medias, medianas y percentiles se ubicaron en rangos lógicos y coherentes, lo que me dio confianza en la consistencia de los datos luego de la imputación.  
+
+En las variables categóricas también encontré mejoras: los valores ahora presentan mayor uniformidad y se redujo la dispersión entre categorías poco frecuentes o mal codificadas, lo que favorece la coherencia semántica del dataset.  
+
+Al revisar nuevamente los outliers mediante el método IQR, identifiqué que todavía persisten algunos casos extremos en variables como estrato, edad de los padres y coordenadas geográficas. Sin embargo, la proporción de estos registros es baja (generalmente inferior al 5%), lo que me indica que reflejan más la heterogeneidad real de la población que errores de captura o digitación.  
+
+Finalmente, la comparación del nivel de datos faltantes antes y después de la imputación confirmó la efectividad del procedimiento: variables críticas como **NUMERO_HIJOS, HIJOS_EN_HOGAR, EDAD_PADRE y EDAD_MADRE** quedaron completamente cubiertas. Solo persisten vacíos menores en los rangos de edad, pero con proporciones mínimas cercanas al **2%**.  
+
+En conclusión, el proceso de imputación fue exitoso. La base de datos ahora se encuentra mucho más sólida, con distribuciones consistentes, menor dispersión categórica y ausencia de vacíos en las variables fundamentales, lo que la deja lista para análisis estadísticos avanzados y modelado posterior.  
+
+
+
+## 8. Conclusiones
 
 - La base de datos presentaba inicialmente altos niveles de incompletitud, especialmente en variables relacionadas con información familiar y del hogar.
 
