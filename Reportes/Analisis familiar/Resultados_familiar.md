@@ -89,6 +89,26 @@ Este script realiza un análisis exploratorio de datos (EDA) sobre información 
 
 ## Cruce Hijos y Convivencia Familiar
 
+### Análisis Chi-cuadrado: Asociación entre Tener Hijos y convivencia familiar
+
+**Hipótesis:**
+
+- **H₀ (Hipótesis nula):** No existe asociación entre tener hijos y convivir con la familia. Es decir, las variables **HIJOS** y **HABITA_VIVIENDA_FAMILIAR** son independientes.
+- **H₁ (Hipótesis alternativa):** Existe una asociación entre tener hijos y convivir con la familia. Las variables no son independientes.
+
+**Resultado del test:**
+
+- Estadístico Chi-cuadrado: **χ² = 68.58**
+- Valor-p: **p < 0.001**
+
+**Conclusión:**
+
+Dado que el valor-p es menor a 0.05, se **rechaza la hipótesis nula**. Por lo tanto, se concluye que existe una **asociación estadísticamente significativa** entre tener hijos y la convivencia familiar.
+
+
+
+
+
 ### Tabla de contingencia (frecuencias absolutas)
 | Hijos | No habita con familia | Sí habita con familia | Total |
 |-------|------------------------|------------------------|-------|
@@ -105,13 +125,30 @@ Este script realiza un análisis exploratorio de datos (EDA) sobre información 
 ### Interpretación
 - Entre quienes **no tienen hijos**, el **23.09% convive con su familia**, frente a un **76.91% que no lo hace**.  
 - Entre quienes **sí tienen hijos**, solo el **14.97% habita con su familia**, mientras que la gran mayoría (**85.03%**) no convive con ella.  
-- Esto sugiere que **tener hijos no implica necesariamente mayor convivencia familiar**, incluso se observa lo contrario.  
+
 
 
 
 
 ## Analisis hijos vivienda propia
 
+###  Análisis Chi-cuadrado: Asociación entre Tener Hijos y Vivienda Propia
+
+**Hipótesis:**
+
+- **H₀ (Hipótesis nula):** No existe asociación entre tener hijos y la tenencia de vivienda propia. Es decir, las variables **HIJOS** y **VIVIENDA_PROPIA** son independientes.
+- **H₁ (Hipótesis alternativa):** Existe una asociación entre tener hijos y la tenencia de vivienda propia. Las variables no son independientes.
+
+**Resultado del test:**
+
+- Estadístico Chi-cuadrado: **χ² = 604.73**
+- Valor-p: **p < 0.001**
+
+**Conclusión:**
+
+Dado que el valor-p es menor a 0.05, se **rechaza la hipótesis nula**. Por lo tanto, se concluye que existe una **asociación estadísticamente significativa** entre tener hijos y la posesión de vivienda propia.
+
+Este hallazgo sugiere que la decisión o posibilidad de adquirir vivienda puede estar relacionada con la condición de ser padre o madre, lo cual puede tener implicaciones en políticas de vivienda, planificación familiar y desarrollo social.
 
 ![Gráfica Hijos vs Vivienda Propia](https://github.com/Suarez5479/Analisis-datos-fac-equipo-X-/blob/main/Reportes/Analisis%20familiar/Relacion%20entre%20Hijos%20y%20Vivienda%20Propia.png?raw=true)
 
@@ -126,7 +163,28 @@ Este script realiza un análisis exploratorio de datos (EDA) sobre información 
 
 ## Distribución de Categoría por Estado Civil
 
-![categoria por estado civil](https://github.com/user-attachments/assets/5a2023fe-097d-47fb-97fb-fcc7daf0a3f1)
+###  Análisis Chi-cuadrado: Asociación entre Estado Civil y Categoría
+
+**Hipótesis:**
+
+- **H₀ (Hipótesis nula):** No existe asociación entre el estado civil y la categoría laboral. Es decir, las variables **ESTADO_CIVIL** y **CATEGORÍA** son independientes.
+- **H₁ (Hipótesis alternativa):** Existe una asociación entre el estado civil y la categoría laboral. Las variables no son independientes.
+
+**Resultado del test:**
+
+- Estadístico Chi-cuadrado: **χ² = 334.94**
+- Valor-p: **p < 0.001**
+
+**Conclusión:**
+
+Dado que el valor-p es menor a 0.05, se **rechaza la hipótesis nula**. Se concluye que existe una **asociación estadísticamente significativa** entre el estado civil y la categoría laboral del personal.
+
+Este resultado sugiere que la distribución de las categorías laborales varía según el estado civil, lo que podría reflejar diferencias estructurales o sociales dentro de la organización que merecen mayor análisis.
+
+
+
+
+![categoria por estado civil](https://github.com/Suarez5479/Analisis-datos-fac-equipo-X-/blob/main/Reportes/Analisis%20familiar/Distribucion%20de%20Categoria%20por%20Estado%20Civil.png?raw=true)
 
 - En **casados y divorciados**, predomina la categoría **suboficial**, aunque la categoría civil también tiene un peso importante.  
 - En **separados**, la mayoría pertenece a la categoría **civil**, seguida por suboficial.  
@@ -135,18 +193,40 @@ Este script realiza un análisis exploratorio de datos (EDA) sobre información 
 
 ## Analisis de estado civil y edad
 
-| Estado Civil | Porcentaje |
-|--------------|------------|
-| Casado       | 39.69%     |
-| Divorciado   | 40.35%     |
-| Separado     | 40.88%     |
-| Soltero/a    | 30.22%     |
-| Viudo/a      | 47.56%     |
+###  Conclusión del análisis de edad por estado civil 
 
-**Interpretación:**  
-La tabla muestra el porcentaje de personas con vivienda propia según su estado civil. Se observa que los viudos/as presentan el porcentaje más alto (47.56%), mientras que los solteros/as tienen el porcentaje más bajo (30.22%). Los casados, divorciados y separados se mantienen en un rango similar (aprox. 39–41%), lo que sugiere que el estado civil podría influir en la probabilidad de tener vivienda propia.
+La prueba de Kruskal-Wallis mostró diferencias estadísticamente significativas en la edad según el estado civil (p < 0.05).  
+La prueba post hoc de Dunn (con corrección de Bonferroni) identificó qué grupos presentan diferencias significativas.
 
+####  Edad media por grupo:
 
+| Estado Civil           | Edad media |
+|-----------------------|------------|
+| Soltero/a             | 30.24      |
+| Casado                | 39.71      |
+| Divorciado/Separado   | 40.56      |
+| Viudo/a               | 47.56      |
+
+#### Comparaciones significativas (Dunn):
+
+| Comparación                    | p-valor  | ¿Significativa? | Interpretación |
+|------------------------------|----------|-----------------|----------------|
+| Casado vs Soltero/a           | < 0.001  | ✅ Sí           | Solteros/as son significativamente **más jóvenes** que casados |
+| Casado vs Viudo/a             | 0.0001   | ✅ Sí           | Viudos/as son significativamente **mayores** que casados |
+| Divorciado/Separado vs Soltero/a | < 0.001 | ✅ Sí          | Solteros/as son significativamente **más jóvenes** que divorciados/separados |
+| Divorciado/Separado vs Viudo/a   | 0.0041  | ✅ Sí           | Viudos/as son significativamente **mayores** que divorciados/separados |
+| Soltero/a vs Viudo/a          | < 0.001  | ✅ Sí           | Viudos/as son significativamente **mayores** que solteros/as |
+| Casado vs Divorciado/Separado | 0.115    | ❌ No           | No hay diferencias significativas |
+
+####  Conclusión:
+
+Las edades difieren significativamente entre la mayoría de los grupos de estado civil. En términos generales:
+
+- **Solteros/as** son los más jóvenes.
+- **Viudos/as** son los más mayores.
+- **Casados** y **divorciados/separados** tienen edades similares entre sí, sin diferencias significativas.
+
+Este patrón es consistente con las etapas de la vida y puede guiar intervenciones enfocadas según el estado civil y edad en bienestar familiar.
 
 ## Analisis de maltrato intrafamiliar
 
