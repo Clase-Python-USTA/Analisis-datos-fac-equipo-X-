@@ -35,10 +35,6 @@ En el análisis exploratorio de la base, se identificaron altos porcentajes de v
 
 No se identificaron registros duplicados, lo cual asegura que la base no presenta redundancias directas en sus observaciones.
 
-####  Tipos de datos
-
-En cuanto a los tipos de variables, se observa que la mayor parte corresponde a datos numéricos enteros (153 variables), seguidos por variables categóricas de texto (66) y un menor número de variables numéricas decimales (12). Esta distribución refleja la predominancia de información cuantitativa en la base.
-
 #### Problemas de codificación
 
 No se detectaron columnas con errores de codificación en los nombres de las variables. Sin embargo, se identificaron inconsistencias en los valores de texto dentro de algunas categorías, lo que será objeto de depuración en etapas posteriores.
