@@ -13,22 +13,125 @@
 
 ## 1. ¿Qué columnas tienen más datos faltantes?  
 
-Tras el **re-análisis post-limpieza**, las columnas con mayor número de vacíos son:  
+#### Datos faltantes
 
-| Columna                                | Datos Faltantes | % |
-|----------------------------------------|-----------------|----|
-| NUMERO_PERSONAS_APORTE_SOSTENIMIENTO2  | 3928            | 61.16% |
-| NUMERO_HABITAN_VIVIENDA2               | 3808            | 59.29% |
-| NUMERO_HIJOS                           | 463             | 7.21% |
-| HIJOS_EN_HOGAR                         | 446             | 6.94% |
-| EDAD_RANGO_PADRE                       | 142             | 2.21% |
-| EDAD_PADRE                             | 142             | 2.21% |
-| EDAD_RANGO_MADRE                       | 139             | 2.16% |
-| EDAD_MADRE                             | 135             | 2.10% |
-| EDAD2                                  | 13              | 0.20% |
-| EDAD_RANGO                             | 13              | 0.20% |
+En el análisis exploratorio de la base, se identificaron altos porcentajes de valores nulos en distintas variables. Las diez columnas con mayor afectación se presentan en la siguiente tabla:.
 
-Es importante resaltar que, en el caso de **NUMERO_HABITAN_VIVIENDA2**, el **96% de los vacíos corresponden a registros donde los participantes habían marcado previamente "No responde" en una columna asociada**. Esto evidencia que los faltantes no son errores de captura, sino consecuencia lógica de la respuesta previa.  
+
+| Columna                                  | Datos Faltantes | %      |
+| ---------------------------------------- | --------------- | ------ |
+| NUMERO\_PERSONAS\_APORTE\_SOSTENIMIENTO2 | 3928            | 61.16% |
+| NUMERO\_HABITAN\_VIVIENDA2               | 3808            | 59.29% |
+| NUMERO\_HIJOS                            | 3217            | 50.09% |
+| HIJOS\_EN\_HOGAR                         | 3200            | 49.82% |
+| EDAD\_RANGO\_PADRE                       | 1939            | 30.19% |
+| EDAD\_PADRE                              | 1939            | 30.19% |
+| EDAD\_RANGO\_MADRE                       | 889             | 13.84% |
+| EDAD\_MADRE                              | 885             | 13.78% |
+| EDAD2                                    | 13              | 0.20%  |
+| EDAD\_RANGO                              | 13              | 0.20%  |
+
+####  Duplicados
+
+No se identificaron registros duplicados, lo cual asegura que la base no presenta redundancias directas en sus observaciones.
+
+####  Tipos de datos
+
+En cuanto a los tipos de variables, se observa que la mayor parte corresponde a datos numéricos enteros (153 variables), seguidos por variables categóricas de texto (66) y un menor número de variables numéricas decimales (12). Esta distribución refleja la predominancia de información cuantitativa en la base.
+
+#### Problemas de codificación
+
+No se detectaron columnas con errores de codificación en los nombres de las variables. Sin embargo, se identificaron inconsistencias en los valores de texto dentro de algunas categorías, lo que será objeto de depuración en etapas posteriores.
+
+---
+
+## Limpieza de variables categóricas
+
+Durante la depuración de la base se identificaron inconsistencias en las variables categóricas asociadas a cadenas de texto. Estas inconsistencias estaban relacionadas con el uso de acentos, mayúsculas, caracteres especiales y variaciones en la escritura, lo que generaba un aumento artificial del número de categorías.
+
+### Proceso de limpieza
+
+#### Normalización de cadenas
+- Conversión de todos los valores a minúsculas.  
+- Eliminación de tildes y caracteres extraños producto de errores de codificación.  
+- Estandarización de espacios en blanco y símbolos innecesarios.  
+
+#### Unificación de categorías equivalentes
+- Se detectaron registros que, aunque distintos en su escritura, correspondían a la misma categoría.  
+- Estos se homologaron bajo un valor canónico único, reduciendo la dispersión de categorías y garantizando mayor coherencia.  
+
+### Resultados de la depuración
+- Reducción significativa de categorías redundantes.  
+- Mayor uniformidad en la clasificación de registros.  
+- Preparación de las variables categóricas para análisis posteriores sin sesgos por errores de digitación o codificación.  
+
+---
+
+##  Imputaciones lógicas
+
+Se aplicaron reglas de consistencia entre variables relacionadas con el fin de reducir incoherencias internas en los registros.
+
+### Reglas aplicadas
+
+- **HIJOS y NUMERO_HIJOS**  
+  - Cuando `HIJOS = "no"` y `NUMERO_HIJOS = NA`, se imputó con **0**.  
+  - **2.754 registros corregidos.**
+
+- **HIJOS y HIJOS_EN_HOGAR**  
+  - Misma regla anterior.  
+  - **2.754 registros corregidos.**
+
+- **MADRE_VIVE y EDAD_MADRE / RANGO_EDAD_MADRE**  
+  - Cuando la madre estaba fallecida y la edad no estaba registrada, se imputó con **0**.  
+  - **750 registros corregidos.**
+
+- **PADRE_VIVE y EDAD_PADRE / RANGO_EDAD_PADRE**  
+  - Mismo criterio aplicado.  
+  - **1.797 registros corregidos.**
+ 
+    En esta fase no me limité únicamente a aplicar reglas lógicas, sino que también recurrí a técnicas estadísticas más robustas.  
+
+Primero, como ya conté, realicé las imputaciones simples: completé con cero los casos donde `HIJOS = "no"` y `NUMERO_HIJOS` estaba vacío, lo mismo con `HIJOS_EN_HOGAR`. También ajusté los registros de los padres y madres fallecidos, asignando cero en las variables de edad cuando correspondía. Estos pasos me ayudaron a alinear la información básica y reducir incoherencias.  
+
+Sin embargo, para resolver los faltantes en variables numéricas más complejas, decidí aplicar **MICE (Multivariate Imputation by Chained Equations)**. En el código configuré el `IterativeImputer` con una semilla fija (`random_state = 42`) para asegurar la reproducibilidad de los resultados. Este método lo escogí porque me permite **imputar de manera iterativa cada variable faltante en función de todas las demás**, lo que aprovecha al máximo las correlaciones entre variables.  
+
+En la práctica, MICE funciona construyendo un modelo de regresión para cada variable con datos faltantes y lo actualiza en varias iteraciones. Así, no se rellenan los vacíos con medias globales o medianas que pueden distorsionar la variabilidad, sino que cada imputación está condicionada a la información disponible de los demás campos del individuo.  
+
+Opté por MICE en lugar de usar un método basado en componentes principales (como PCA o ACP) porque mi interés principal era **preservar la estructura original de las variables**, no reducir la dimensionalidad. El PCA es muy útil cuando se quiere sintetizar la información en menos dimensiones, pero al hacerlo se pierde interpretabilidad directa sobre cada variable. En cambio, con MICE mantuve intacto el significado de las variables originales, logrando imputaciones más naturales y fáciles de interpretar en el análisis posterior.  
+
+Además, al trabajar con un dataset sociodemográfico amplio (más de 200 variables) MICE me dio la ventaja de **capturar relaciones complejas entre factores familiares, sociales y educativos** que difícilmente se reflejarían en un promedio simple o en una reducción por componentes.  
+
+Con este procedimiento:  
+- Pude completar prácticamente todos los valores faltantes en variables numéricas.  
+- Trunqué los valores negativos a cero para evitar inconsistencias.  
+- Respeté los ceros reales que representan situaciones lógicas (por ejemplo, padres fallecidos).  
+- Reconstruí coherentemente los rangos de edad de padre y madre con base en las imputaciones numéricas.  
+
+El resultado fue una base mucho más sólida: las distribuciones de las variables imputadas se alinearon con lo esperado, se redujo la proporción de faltantes a menos del 2% en algunos rangos categóricos, y lo más importante, logré mantener la **coherencia semántica** de cada variable.  
+
+
+---
+
+## Re-análisis post-limpieza
+
+Después de las correcciones, los porcentajes de datos faltantes se redujeron significativamente:
+
+| Columna                              | Datos Faltantes | Porcentaje |
+|--------------------------------------|----------------|------------|
+| NUMERO_PERSONAS_APORTE_SOSTENIMIENTO2 | 3928           | 61.16%     |
+| NUMERO_HABITAN_VIVIENDA2             | 3808           | 59.29%     |
+| NUMERO_HIJOS                          | 463            | 7.21%      |
+| HIJOS_EN_HOGAR                        | 446            | 6.94%      |
+| EDAD_RANGO_PADRE                      | 142            | 2.21%      |
+| EDAD_PADRE                            | 142            | 2.21%      |
+| EDAD_RANGO_MADRE                      | 139            | 2.16%      |
+| EDAD_MADRE                            | 135            | 2.10%      |
+
+En particular, el caso de la columna **NUMERO_PERSONAS_APORTE_SOSTENIMIENTO2** fue el más relevante, pues presenta un nivel de vacíos superior al 61%. Al no existir información complementaria que permitiera reconstruir los datos de manera confiable, la variable perdió valor analítico. Además, en la discusión con el equipo de trabajo se concluyó que esta columna no sería necesaria para los análisis posteriores, por lo que no se optó por ningún proceso de imputación.
+
+Por otro lado, en la columna **NUMERO_HABITAN_VIVIENDA2** el porcentaje de datos faltantes alcanzó el 59%. Aunque en la base se encontraron algunas variables relacionadas (como aquellas que indican si la persona vive con hermanos mediante respuestas binarias de 1 o 0), estas no ofrecían información suficiente para estimar el número real de personas en la vivienda. De hecho, intentar una imputación con base en estas variables generaría inconsistencias y errores metodológicos. A esto se suma que, tras revisar los casos marcados como “no responde”, se evidenció que corresponden al 96% de los vacíos, lo que confirmó la baja confiabilidad de este campo.
+
+En consecuencia, tanto en **NUMERO_PERSONAS_APORTE_SOSTENIMIENTO2** como en **NUMERO_HABITAN_VIVIENDA2** se decidió no aplicar estrategias de imputación. El alto nivel de vacíos, la falta de información auxiliar y el riesgo de introducir sesgos en el análisis justifican esta decisión. Estas variables fueron descartadas en la etapa de preprocesamiento, priorizando la calidad de la información que sí cuenta con una base sólida para su análisis estadístico.
 
 ---
 
