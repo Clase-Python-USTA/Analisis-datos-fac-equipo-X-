@@ -199,7 +199,8 @@ Se incluyen visualizaciones que facilitan la interpretación de los resultados y
 | Divorciado/Separado   | 40.56      |
 | Viudo/a               | 47.56      |
 
-#### Comparaciones significativas (Dunn):
+#### Comparaciones significativas (Dunn): La prueba de Kruskal-Wallis mostró diferencias estadísticamente significativas en la edad según el estado civil (p < 0.05).
+La prueba post hoc de Dunn (con corrección de Bonferroni) identificó qué grupos presentan diferencias significativas.
 
 | Comparación                    | p-valor  | ¿Significativa? | Interpretación |
 |------------------------------|----------|-----------------|----------------|
