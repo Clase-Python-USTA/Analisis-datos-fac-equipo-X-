@@ -1,420 +1,165 @@
-# ==============================================================
-# PASO 1: IMPORTAR LIBRERÍAS
-# ==============================================================
+# Informe de Análisis Demográfico FAC 2024
 
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
-from scipy import stats
-from scipy.stats import chi2_contingency
+## Introducción
+El presente informe expone los principales hallazgos del análisis demográfico del personal de la Fuerza Aeroespacial Colombiana (FAC) a partir de la base de datos **JEFAB_2024_corregido.xlsx**, procesada mediante el script `analisis_demografico.py`.  
+El archivo contiene **6.423 registros** y **231 variables**, que tras limpieza y normalización se consolidaron en 237 columnas listas para análisis.  
 
-# ==============================================================
-# PASO 2: CARGAR EL ARCHIVO DE DATOS
-# ==============================================================
+El objetivo es describir la composición de la población en variables claves como edad, sexo, categoría, grado militar, estado civil y nivel educativo, así como explorar asociaciones entre estas dimensiones mediante técnicas estadísticas básicas y visualizaciones gráficas.
 
-archivo = '../JEFAB_2024_corregido.xlsx'
-df = pd.read_excel(archivo)
+---
 
-print("El archivo se cargó con éxito. Primeras 5 filas:")
-print(df.head())
-print("\nInformación general del DataFrame:")
-df.info()
+## Perfil poblacional
+El conjunto de datos muestra un personal con **edad promedio de 36.7 años**, **mediana de 35** y un rango de **18 a 69 años**.  
+La **distribución por categoría** ubica a los **suboficiales como el grupo más numeroso (2.650, 41.3%)**, seguidos de **civiles (1.929, 30.0%)** y **oficiales (1.844, 28.7%)**.  
 
-# ==============================================================
-# PASO 3: EXPLORACIÓN INICIAL DE LOS DATOS
-# ==============================================================
+Estas cifras evidencian que la estructura institucional se apoya principalmente en los suboficiales, mientras que civiles y oficiales mantienen una proporción similar cercana al 30 % cada uno.
 
-print("\nDimensiones del DataFrame (filas, columnas):")
-print(df.shape)
+---
 
-print("\nEstadísticas descriptivas de las columnas numéricas:")
-print(df.describe())
+## Índices demográficos especializados
+El script calcula tres indicadores clave para resumir la estructura demográfica:
 
-print("\nConteo de valores nulos por columna:")
-print(df.isnull().sum())
+1. **Índice de masculinidad**  
+   - **Fórmula:** (Nº hombres / Nº mujeres) × 100  
+   - **Resultado:** **228.9** → por cada 100 mujeres hay 229 hombres.  
+   - **Interpretación:** predominio masculino pronunciado en la institución.  
 
-print("=== INFORMACIÓN GENERAL ===")
-print(f"Total de registros: {len(df)}")
-print(f"Total de columnas: {len(df.columns)}")
+2. **Índice de dependencia**  
+   - **Definición en el script:** (jóvenes <30 + mayores ≥50) / (población activa 30–49) × 100  
+   - **Resultado:** **68.2 %**.  
+   - **Interpretación:** por cada 100 personas en edad activa hay 68 en los extremos etarios. Mide la carga relativa sobre el tramo operativo.  
 
-# ==============================================================
-# PASO 4: CONFIGURACIÓN PARA VISUALIZACIONES
-# ==============================================================
+3. **Coeficiente de variación etaria (CV)**  
+   - **Fórmula:** (desviación estándar / media) × 100  
+   - **Resultado:** **27.6 %**.  
+   - **Interpretación:** la edad presenta una variabilidad moderada, aunque el centro de la distribución se mantiene claro (mediana 35 años).  
 
-sns.set_theme(style="whitegrid")
+Además, al comparar categorías, se observa que la **mediana de edad de los civiles es 48 años**, mucho mayor que la de **oficiales y suboficiales (32 años)**.
 
-# ==============================================================
-# FUNCIONES AUXILIARES
-# ==============================================================
+---
 
-# Función para agregar etiquetas numéricas a las barras
-def agregar_valores(ax, orient="v"):
-    if orient == "v":  # barras verticales
-        for p in ax.patches:
-            ax.annotate(f'{int(p.get_height())}',
-                        (p.get_x() + p.get_width() / 2., p.get_height()),
-                        ha='center', va='bottom', fontsize=9)
-    else:  # barras horizontales
-        for p in ax.patches:
-            ax.annotate(f'{int(p.get_width())}',
-                        (p.get_width(), p.get_y() + p.get_height() / 2.),
-                        ha='left', va='center', fontsize=9)
+## Estructura etaria
+**Distribución general por grupos de edad:**
+- 18–25 años: 13.6 %  
+- 26–35 años: 37.3 %  
+- 36–45 años: 29.3 %  
+- 46–55 años: 13.9 %  
+- 56+ años: 5.7 %  
 
-# ==============================================================
-# ANÁLISIS ESTADÍSTICO DEMOGRÁFICO ESPECIALIZADO
-# ==============================================================
+El grupo modal corresponde a **26–35 años**, que concentra más de un tercio del total.
 
-print("\n" + "="*60)
-print("ANÁLISIS ESTADÍSTICO DEMOGRÁFICO ESPECIALIZADO")
-print("="*60)
+**Gráfico: Distribución de la edad**  
+![01](../../01_distribucion_edad.png)
 
-# Función para calcular índices demográficos especializados
-def calcular_indices_demograficos():
-    """Calcula índices demográficos especializados"""
-    
-    # Índice de masculinidad
-    hombres = len(df[df['SEXO'] == 'HOMBRE'])
-    mujeres = len(df[df['SEXO'] == 'MUJER'])
-    indice_masculinidad = (hombres / mujeres) * 100
-    
-    # Índice de dependencia demográfica (adaptado)
-    jovenes = len(df[df['EDAD2'] < 30])  # Menores de 30
-    adultos_mayores = len(df[df['EDAD2'] >= 50])  # 50 años o más
-    poblacion_activa = len(df[(df['EDAD2'] >= 30) & (df['EDAD2'] < 50)])
-    indice_dependencia = ((jovenes + adultos_mayores) / poblacion_activa) * 100
-    
-    # Coeficiente de variación etaria
-    cv_edad = (df['EDAD2'].std() / df['EDAD2'].mean()) * 100
-    
-    # Mediana de edad por categoría
-    edad_mediana_categoria = df.groupby('CATEGORIA')['EDAD2'].median()
-    
-    print("\n ÍNDICES DEMOGRÁFICOS ESPECIALIZADOS:")
-    print(f"  Índice de Masculinidad: {indice_masculinidad:.1f} hombres por cada 100 mujeres")
-    print(f"  Índice de Dependencia Demográfica: {indice_dependencia:.1f}%")
-    print(f"  Coeficiente de Variación Etaria: {cv_edad:.1f}%")
-    print(f"  Edad mediana OFICIAL: {edad_mediana_categoria.get('OFICIAL', 'N/A'):.1f} años")
-    print(f"  Edad mediana SUBOFICIAL: {edad_mediana_categoria.get('SUBOFICIAL', 'N/A'):.1f} años")
-    print(f"  Edad mediana CIVIL: {edad_mediana_categoria.get('CIVIL', 'N/A'):.1f} años")
-    
-    return indice_masculinidad, indice_dependencia, cv_edad
+**Gráfico: Pirámide etaria por sexo**  
+![06](../../06_piramide_etaria.png)
 
-# Función para análisis de estructura etaria
-def analizar_estructura_etaria():
-    """Análisis especializado de estructura etaria"""
-    
-    # Grupos etarios estándar demográficos
-    df['GRUPO_ETARIO'] = pd.cut(df['EDAD2'], 
-                               bins=[0, 25, 35, 45, 55, 100], 
-                               labels=['18-25', '26-35', '36-45', '46-55', '56+'])
-    
-    distribucion_etaria = df['GRUPO_ETARIO'].value_counts().sort_index()
-    porcentajes_etaria = (distribucion_etaria / len(df) * 100).round(1)
-    
-    print("\n ESTRUCTURA ETARIA DEMOGRÁFICA:")
-    for grupo, count in distribucion_etaria.items():
-        pct = porcentajes_etaria[grupo]
-        print(f"  {grupo} años: {count:4d} personas ({pct:4.1f}%)")
-    
-    # Concentración etaria (% en grupo modal)
-    grupo_modal = distribucion_etaria.idxmax()
-    concentracion = porcentajes_etaria[grupo_modal]
-    print(f"\n  Grupo etario modal: {grupo_modal} ({concentracion:.1f}%)")
-    
-    return distribucion_etaria, grupo_modal
+En la pirámide etaria se observa predominio masculino en todos los tramos, con mayor presencia femenina en edades intermedias (26–45 años).  
+Los mayores de 55 años son minoritarios (5.7 %), lo que evidencia una población predominantemente joven-adulta.
 
-# Función para análisis de asociaciones demográficas
-def analizar_asociaciones_demograficas():
-    """Análisis de asociaciones entre variables demográficas clave"""
-    
-    print("\n ASOCIACIONES DEMOGRÁFICAS (Test Chi-cuadrado):")
-    
-    # Asociaciones clave para análisis demográfico
-    asociaciones = [
-        ('SEXO', 'CATEGORIA'),
-        ('GRUPO_ETARIO', 'CATEGORIA'),
-        ('ESTADO_CIVIL', 'SEXO'),
-        ('NIVEL_EDUCATIVO', 'CATEGORIA')
-    ]
-    
-    resultados = {}
-    
-    for var1, var2 in asociaciones:
-        # Crear tabla de contingencia
-        tabla = pd.crosstab(df[var1], df[var2])
-        
-        # Test chi-cuadrado
-        chi2, p_val, dof, expected = chi2_contingency(tabla)
-        
-        # V de Cramér (fuerza de asociación)
-        n = tabla.sum().sum()
-        cramer_v = np.sqrt(chi2 / (n * (min(tabla.shape) - 1)))
-        
-        # Interpretación demográfica
-        if p_val < 0.01:
-            significancia = "Muy significativa"
-        elif p_val < 0.05:
-            significancia = "Significativa"
-        else:
-            significancia = "No significativa"
-        
-        fuerza = "Fuerte" if cramer_v > 0.3 else "Moderada" if cramer_v > 0.1 else "Débil"
-        
-        print(f"  {var1} × {var2}:")
-        print(f"    Chi² = {chi2:.2f}, p = {p_val:.4f} ({significancia})")
-        print(f"    V de Cramér = {cramer_v:.3f} (Asociación {fuerza})")
-        
-        resultados[f"{var1}×{var2}"] = {'chi2': chi2, 'p_val': p_val, 'cramer_v': cramer_v}
-    
-    return resultados
+---
 
-# Función para análisis de diferencias por subgrupos
-def analizar_diferencias_subgrupos():
-    """Análisis de diferencias de edad entre subgrupos demográficos"""
-    
-    print("\n DIFERENCIAS DE EDAD POR SUBGRUPOS:")
-    
-    # Test t para diferencias por género
-    edad_h = df[df['SEXO'] == 'HOMBRE']['EDAD2']
-    edad_m = df[df['SEXO'] == 'MUJER']['EDAD2']
-    
-    t_stat, p_val = stats.ttest_ind(edad_h, edad_m)
-    diferencia_media = edad_h.mean() - edad_m.mean()
-    
-    print(f"  Diferencia H-M en edad promedio: {diferencia_media:+.1f} años")
-    print(f"  Test t: t = {t_stat:.3f}, p = {p_val:.4f}")
-    print(f"  Resultado: {'Significativa' if p_val < 0.05 else 'No significativa'}")
-    
-    # ANOVA para diferencias por categoría
-    grupos_categoria = [df[df['CATEGORIA'] == cat]['EDAD2'] for cat in df['CATEGORIA'].unique()]
-    f_stat, p_anova = stats.f_oneway(*grupos_categoria)
-    
-    print(f"\n  Variación de edad entre categorías:")
-    print(f"  ANOVA: F = {f_stat:.3f}, p = {p_anova:.4f}")
-    print(f"  Resultado: {'Significativa' if p_anova < 0.05 else 'No significativa'}")
-    
-    return t_stat, p_val, f_stat, p_anova
+## Composición por sexo
+Del total de efectivos, **4.470 son hombres (69.6%) y 1.953 son mujeres (30.4%)**.  
+Esto confirma la brecha de género señalada por el índice de masculinidad.
 
-# Ejecutar análisis estadísticos especializados
-indice_masc, indice_dep, cv_edad = calcular_indices_demograficos()
-dist_etaria, grupo_modal = analizar_estructura_etaria()
-asociaciones_result = analizar_asociaciones_demograficas()
-t_genero, p_genero, f_categoria, p_categoria = analizar_diferencias_subgrupos()
+**Gráfico 08. Distribución de sexo por categoría (heatmap)**  
+![08](../../08_sexo_por_categoria.png)
 
-# ==============================================================
-# GRÁFICOS UNIVARIADOS
-# ==============================================================
+El heatmap muestra que en los **civiles la proporción es casi equilibrada**, mientras que en los **oficiales** predominan los hombres (71 %) y en los **suboficiales** la diferencia es aún mayor (83 %).  
+La mayor inequidad de género se presenta en los  militares.
 
-# Gráfico 1: Distribución de Edad
-plt.figure(figsize=(10, 6))
-sns.histplot(df['EDAD2'], bins=20, kde=True, color='dodgerblue')
-plt.title('Distribución de la Edad del Personal', fontsize=16, fontweight='bold')
-plt.xlabel('Edad (años)')
-plt.ylabel('Frecuencia')
-plt.savefig('grafico_distribucion_edad.png')
+---
 
-# Análisis de edad
-print("\n=== ANÁLISIS DE EDAD ===")
-print(f"Edad promedio: {df['EDAD2'].mean():.1f} años")
-print(f"Edad mínima: {df['EDAD2'].min()} años")
-print(f"Edad máxima: {df['EDAD2'].max()} años")
+## Categorías y grados
+La distribución general por categoría ya señaló el peso de los suboficiales. El análisis por grado permite detallar la estructura jerárquica.
 
-# Gráfico 2: Distribución de Género
-plt.figure(figsize=(8, 6))
-ax = sns.countplot(x='SEXO', data=df, order=df['SEXO'].value_counts().index, palette='viridis')
-plt.title('Distribución por Género', fontsize=16, fontweight='bold')
-plt.xlabel('Género')
-plt.ylabel('Cantidad')
-agregar_valores(ax, orient="v")
-plt.savefig('grafico_distribucion_genero.png')
+**Gráfico: Distribución por categoría**  
+![02](../../02_distribucion_categoria.png)
 
-# Análisis de género
-print("\n=== ANÁLISIS DE GÉNERO ===")
-print(df['SEXO'].value_counts())
+**Gráfico: Distribución por grado**  
+![03](../../03_distribucion_grado.png)
 
-# Gráfico 3: Distribución por Categoría Militar
-plt.figure(figsize=(12, 7))
-ax = sns.countplot(y='CATEGORIA', data=df, order=df['CATEGORIA'].value_counts().index, palette='plasma')
-plt.title('Distribución por Categoría Militar', fontsize=16, fontweight='bold')
-plt.xlabel('Cantidad')
-plt.ylabel('Categoría')
-agregar_valores(ax, orient="h")
-plt.savefig('grafico_distribucion_categoria.png')
+Los grados más frecuentes son **T3, T2 y T1 (suboficiales técnicos)**, lo que configura la base de la pirámide jerárquica.  
+Los grados superiores (coroneles y generales) concentran un número muy reducido de personas.
 
-# Gráfico 4: Distribución por Grado Militar (sin "No responde")
-df_grado = df[df['GRADO'].str.lower() != "no responde"]
-plt.figure(figsize=(12, 10))
-ax = sns.countplot(y='GRADO', data=df_grado, order=df_grado['GRADO'].value_counts().index, palette='magma')
-plt.title('Distribución por Grado Específico', fontsize=16, fontweight='bold')
-plt.xlabel('Cantidad')
-plt.ylabel('Grado')
-agregar_valores(ax, orient="h")
-plt.tight_layout()
-plt.savefig('grafico_distribucion_grado.png')
+**Gráfico: Distribución por grado y sexo (oficiales)**  
+![10](../../10_oficiales_distribucion_grado_sexo.png)
 
-# Gráfico 5: Distribución por Estado Civil
-plt.figure(figsize=(12, 7))
-ax = sns.countplot(y='ESTADO_CIVIL', data=df, order=df['ESTADO_CIVIL'].value_counts().index, palette='cividis')
-plt.title('Distribución por Estado Civil', fontsize=16, fontweight='bold')
-plt.xlabel('Cantidad')
-plt.ylabel('Estado Civil')
-agregar_valores(ax, orient="h")
-plt.savefig('grafico_distribucion_estado_civil.png')
 
-# Gráfico 6: Distribución por Nivel Educativo
-plt.figure(figsize=(12, 8))
-ax = sns.countplot(y='NIVEL_EDUCATIVO', data=df,
-                   order=df['NIVEL_EDUCATIVO'].value_counts().index, palette='inferno')
-plt.title('Distribución por Nivel Educativo', fontsize=16, fontweight='bold')
-plt.xlabel('Cantidad')
-plt.ylabel('Nivel Educativo')
-agregar_valores(ax, orient="h")
-plt.tight_layout()
-plt.savefig('grafico_distribucion_nivel_educativo.png')
+El análisis jerárquico revela que **las mujeres tienen mayor presencia en grados iniciales**, pero prácticamente desaparecen en la cúspide de oficiales y suboficiales. Esto muestra un **“techo de cristal”** en la progresión de la carrera militar.
 
-# ==============================================================
-# GRÁFICOS BIVARIADOS
-# ==============================================================
+---
 
-# Gráfico 7: Edad por Categoría Militar
-plt.figure(figsize=(10, 7))
-sns.boxplot(x='CATEGORIA', y='EDAD2', data=df, palette='muted')
-plt.title('Distribución de Edad por Categoría Militar', fontsize=16, fontweight='bold')
-plt.xlabel('Categoría')
-plt.ylabel('Edad (años)')
-plt.savefig('grafico_edad_por_categoria.png')
+## Estado civil
+La mayoría del personal está **casado (61 %)**, seguido por los **solteros (32 %)**.  
+Separados, divorciados y viudos representan apenas un 7 %.
 
-# Gráfico 8: Estado Civil por Género
-plt.figure(figsize=(12, 8))
-ax = sns.countplot(y='ESTADO_CIVIL', hue='SEXO', data=df,
-                   order=df['ESTADO_CIVIL'].value_counts().index, palette='coolwarm')
-plt.title('Distribución de Estado Civil por Género', fontsize=16, fontweight='bold')
-plt.xlabel('Cantidad')
-plt.ylabel('Estado Civil')
-plt.legend(title='Género')
-for container in ax.containers:
-    ax.bar_label(container, fmt='%d', label_type='edge', fontsize=8)
-plt.savefig('grafico_estado_civil_por_genero.png')
+**Gráfico: Distribución por estado civil**  
+![04](../../04_distribucion_estado_civil.png)
 
-# Gráfico 9: Grado Militar por Género (sin "No responde")
-plt.figure(figsize=(12, 8))
-ax = sns.countplot(y='GRADO', hue='SEXO', data=df_grado,
-                   order=df_grado['GRADO'].value_counts().index, palette='coolwarm')
-plt.title('Distribución de Grado Militar por Género', fontsize=16, fontweight='bold')
-plt.xlabel('Cantidad')
-plt.ylabel('Grado')
-plt.legend(title='Género')
-for container in ax.containers:
-    ax.bar_label(container, fmt='%d', label_type='edge', fontsize=8)
-plt.tight_layout()
-plt.savefig('grafico_grado_por_genero.png')
+La tendencia se mantiene en hombres y mujeres, lo que indica que la institución está compuesta mayoritariamente por familias constituidas, con implicaciones directas en la demanda de programas de bienestar.
 
-# Gráfico 10: Relación entre Nivel Educativo y Grado Militar (sin "No responde")
+---
 
-# Filtrar datos quitando "No responde" en GRADO y NIVEL_EDUCATIVO
-df_rel = df[
-    (df['GRADO'].str.lower() != "no responde") &
-    (df['NIVEL_EDUCATIVO'].str.lower() != "no responde")
-]
+## Nivel educativo
+El nivel educativo refleja un capital humano diverso:
 
-plt.figure(figsize=(14, 10))
-ax = sns.countplot(
-    y='GRADO', hue='NIVEL_EDUCATIVO',
-    data=df_rel,
-    order=df_rel['GRADO'].value_counts().index,
-    palette='Spectral'
-)
+- Tecnológico: 2.085  
+- Profesional: 1.761  
+- Otros niveles (técnico, media, básica): menores proporciones  
+- Posgrados (especialización, maestría, doctorado): minoritarios, concentrados en oficiales  
 
-plt.title('Relación entre Nivel Educativo y Grado Militar', fontsize=16, fontweight='bold')
-plt.xlabel('Cantidad')
-plt.ylabel('Grado Militar')
-plt.legend(title='Nivel Educativo', bbox_to_anchor=(1.05, 1), loc='upper left')
-plt.tight_layout()
-plt.savefig('grafico_nivel_educativo_por_grado.png')
+**Gráfico 05. Distribución por nivel educativo**  
+![05](../../05_distribucion_nivel_educativo.png)
 
-# ==============================================================
-# GRÁFICO ESTADÍSTICO ADICIONAL: PIRÁMIDE ETARIA
-# ==============================================================
+**Gráfico 09. Heatmap de educación por categoría**  
+![09](../../09_educacion_por_categoria.png)
 
-plt.figure(figsize=(12, 8))
+El heatmap muestra que los **suboficiales se concentran en formación tecnológica**, los **oficiales en formación profesional y posgrados**, y los **civiles en una mezcla más heterogénea** con peso en secundaria/media.  
+Esto refleja trayectorias educativas diferenciadas según la función institucional.
 
-# Crear pirámide etaria por género
-grupos_edad = ['18-25', '26-35', '36-45', '46-55', '56+']
-df_piramide = df.groupby(['GRUPO_ETARIO', 'SEXO']).size().unstack(fill_value=0)
+---
 
-# Convertir a porcentajes
-df_piramide_pct = df_piramide.div(len(df)) * 100
+## Asociaciones y diferencias significativas
+El módulo estadístico del script aplicó pruebas de independencia y comparaciones de medias para validar patrones:
 
-# Crear pirámide
-y_pos = range(len(grupos_edad))
-hombres = df_piramide_pct.get('HOMBRE', [0]*len(grupos_edad))
-mujeres = df_piramide_pct.get('MUJER', [0]*len(grupos_edad))
+- **Sexo × Categoría:** asociación moderada (V de Cramér = 0.290).  
+- **Grupo etario × Categoría:** asociación fuerte (V = 0.504).  
+- **Estado civil × Sexo:** asociación moderada (V = 0.153).  
+- **Nivel educativo × Categoría:** asociación fuerte (V = 0.638).  
 
-plt.barh(y_pos, -hombres, align='center', color='steelblue', alpha=0.8, label='Hombres')
-plt.barh(y_pos, mujeres, align='center', color='lightcoral', alpha=0.8, label='Mujeres')
+Adicionalmente:  
+- **Edad promedio H vs M:** diferencia de -2.8 años (mujeres más jóvenes), resultado muy significativo.  
+- **ANOVA edad por categoría:** diferencias muy significativas; los civiles son más mayores que oficiales y suboficiales.
 
-plt.yticks(y_pos, grupos_edad)
-plt.xlabel('Porcentaje de población (%)')
-plt.ylabel('Grupos etarios')
-plt.title('Pirámide Etaria del Personal FAC 2024', fontsize=16, fontweight='bold')
-plt.legend()
+Estas pruebas confirman que **las diferencias observadas en los gráficos no son aleatorias**, sino sistemáticas y estadísticamente sólidas.
 
-# Agregar línea central
-plt.axvline(0, color='black', linewidth=0.8)
+---
 
-# Ajustar etiquetas del eje x para mostrar valores absolutos
-ax = plt.gca()
-ticks = ax.get_xticks()
-ax.set_xticks(ticks)
-ax.set_xticklabels([f'{abs(x):.1f}' for x in ticks])
+## Respuestas a preguntas clave
+1. **Rango de edad más común:** entre 28 y 33 años.  
+2. **Distribución por género:** Hombres = 69.6 % · Mujeres = 30.4 %.  
+3. **Grado más frecuente:** T3 – Suboficial Técnico Tercero (622 efectivos).  
+4. **Categoría predominante:** Suboficial (2.650 efectivos, 41.3 %).  
 
-plt.tight_layout()
-plt.savefig('grafico_piramide_etaria.png')
+---
 
-# ==============================================================
-# RESPUESTAS A LAS 3 PREGUNTAS 
-# ==============================================================
+## Conclusiones estratégicas
+- La FAC cuenta con un **bono demográfico joven-adulto (25–35 años)**, que garantiza capacidad operativa actual, pero demanda planificación de relevos en el mediano plazo.  
+- Se confirma un **predominio masculino fuerte**, especialmente en cargos militares, y la existencia de un **techo de cristal** que limita la progresión de las mujeres hacia los grados superiores.  
+- La **estructura institucional descansa en los suboficiales**, particularmente en los grados técnicos T3, T2 y T1.  
+- La alta proporción de **casados (61 %)** muestra la relevancia de los programas familiares y de conciliación laboral.  
+- El **capital humano combina formación técnica-tecnológica en la base y profesional/posgrado en los mandos**, evidenciando una escalera formativa institucionalizada.  
+- Las asociaciones estadísticas refuerzan que **sexo, edad y educación están fuertemente ligados a la categoría**, lo que exige políticas diferenciadas de gestión del talento humano.  
 
-# Pregunta 1: Rango de edad más común
-rango_edad = pd.cut(df['EDAD2'], bins=10).value_counts().idxmax()
-print("\nPregunta 1 - Rango de edad más común:", rango_edad)
+---
 
-# Pregunta 2: Diferencias por género
-conteo_genero = df['SEXO'].value_counts()
-print("\nPregunta 2 - Distribución por género:")
-print(conteo_genero)
+## Recomendaciones
+- **Aprovechar el bono demográfico actual** con planes de capacitación y retención del talento joven.  
+- **Fortalecer políticas de equidad de género**, removiendo barreras para la promoción de mujeres en la carrera militar.  
+- **Planificar el relevo generacional**, considerando la mayor edad promedio del personal civil.  
+- **Impulsar programas de desarrollo profesional** en línea con las trayectorias educativas identificadas.  
+- **Atender la alta conyugalidad** con políticas de bienestar familiar y vivienda.  
 
-# Pregunta 3: Grado militar más frecuente (sin 'No responde')
-grado_mas_frecuente = df_grado['GRADO'].mode()[0]
-print("\nPregunta 3 - Grado militar más frecuente:", grado_mas_frecuente)
-
-# ==============================================================
-# RESUMEN DEMOGRÁFICO ESTADÍSTICO
-# ==============================================================
-
-print("\n" + "="*60)
-print("RESUMEN DEMOGRÁFICO ESTADÍSTICO")
-print("="*60)
-
-print(f"""
- PERFIL DEMOGRÁFICO INSTITUCIONAL:
-• Población total: {len(df):,} efectivos
-• Índice de masculinidad: {indice_masc:.1f} (por cada 100 mujeres)
-• Edad promedio: {df['EDAD2'].mean():.1f} años
-• Grupo etario predominante: {grupo_modal}
-• Coeficiente de variación etaria: {cv_edad:.1f}%
-
- ESTRUCTURA ORGANIZACIONAL:
-• Concentración en SUBOFICIALES: {df['CATEGORIA'].value_counts()['SUBOFICIAL']:,} efectivos
-• Grado más frecuente: {grado_mas_frecuente}
-• Estado civil predominante: {df['ESTADO_CIVIL'].mode()[0]}
-
- HALLAZGOS ESTADÍSTICOS:
-• Diferencia de edad H-M: {'Significativa' if p_genero < 0.05 else 'No significativa'} (p={p_genero:.4f})
-• Variación etaria por categoría: {'Significativa' if p_categoria < 0.05 else 'No significativa'} (p={p_categoria:.4f})
-• Asociación más fuerte: {max(asociaciones_result.items(), key=lambda x: x[1]['cramer_v'])[0]}
-""")
-
-# Mostrar todos los gráficos
-plt.show()
+---

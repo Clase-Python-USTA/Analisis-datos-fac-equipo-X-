@@ -233,7 +233,7 @@ Esto confirma la brecha de género señalada por el índice de masculinidad.
 ![08](../08_sexo_por_categoria.png)
 
 El heatmap muestra que en los **civiles la proporción es casi equilibrada**, mientras que en los **oficiales** predominan los hombres (71 %) y en los **suboficiales** la diferencia es aún mayor (83 %).  
-La mayor inequidad de género se presenta en los  militares.
+La mayor inequidad de género se presenta en los  militares
 
 ---
 
