@@ -363,12 +363,12 @@ La prueba post hoc de Dunn (con corrección de Bonferroni) identificó qué grup
 
 | Comparación                    | p-valor  | ¿Significativa? | Interpretación |
 |------------------------------|----------|-----------------|----------------|
-| Casado vs Soltero/a           | < 0.001  | ✅ Sí           | Solteros/as son significativamente **más jóvenes** que casados |
-| Casado vs Viudo/a             | 0.0001   | ✅ Sí           | Viudos/as son significativamente **mayores** que casados |
-| Divorciado/Separado vs Soltero/a | < 0.001 | ✅ Sí          | Solteros/as son significativamente **más jóvenes** que divorciados/separados |
-| Divorciado/Separado vs Viudo/a   | 0.0041  | ✅ Sí           | Viudos/as son significativamente **mayores** que divorciados/separados |
-| Soltero/a vs Viudo/a          | < 0.001  | ✅ Sí           | Viudos/as son significativamente **mayores** que solteros/as |
-| Casado vs Divorciado/Separado | 0.115    | ❌ No           | No hay diferencias significativas |
+| Casado vs Soltero/a           | < 0.001  |  Sí           | Solteros/as son significativamente **más jóvenes** que casados |
+| Casado vs Viudo/a             | 0.0001   | Sí           | Viudos/as son significativamente **mayores** que casados |
+| Divorciado/Separado vs Soltero/a | < 0.001 |  Sí          | Solteros/as son significativamente **más jóvenes** que divorciados/separados |
+| Divorciado/Separado vs Viudo/a   | 0.0041  |  Sí           | Viudos/as son significativamente **mayores** que divorciados/separados |
+| Soltero/a vs Viudo/a          | < 0.001  | Sí           | Viudos/as son significativamente **mayores** que solteros/as |
+| Casado vs Divorciado/Separado | 0.115    |  No           | No hay diferencias significativas |
 
 ####  Conclusión:
 
