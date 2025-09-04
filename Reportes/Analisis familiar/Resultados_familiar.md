@@ -69,25 +69,8 @@ Este script realiza un análisis exploratorio de datos (EDA) sobre información 
 
  ## Análisis de Convivencia Familiar
 
-### Distribución absoluta
-| Habita con familia | Frecuencia |
-|---------------------|------------|
-| No                  | 5238       |
-| Sí                  | 1185       |
-
-### Distribución porcentual
-| Habita con familia | Porcentaje |
-|---------------------|------------|
-| No                  | 81.56%     |
-| Sí                  | 18.44%     |
-
-### Interpretación
-- La gran mayoría del personal **no habita con su familia (81.56%)**.  
-- Solo un **18.44% sí convive con su familia**, lo que evidencia una diferencia considerable.  
 
 
-
-## Cruce Hijos y Convivencia Familiar
 
 ### Análisis Chi-cuadrado: Asociación entre Tener Hijos y convivencia familiar
 
