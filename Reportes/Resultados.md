@@ -327,7 +327,7 @@ Estas pruebas confirman que **las diferencias observadas en los gráficos no son
 ---
 
 
-# Análisis Familiar 
+# Análisis Familiar
 
 Este proyecto realiza un análisis exploratorio de datos (EDA) centrado en variables sociodemográficas y familiares.  
 El objetivo es identificar patrones y relaciones relevantes sobre **estado civil, hijos, convivencia familiar, maltrato intrafamiliar, vivienda propia y relaciones de pareja**, con el fin de comprender mejor el bienestar familiar y las dinámicas familiares dentro de la población estudiada.  
