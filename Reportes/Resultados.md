@@ -179,7 +179,7 @@ Estas cifras evidencian que la estructura institucional se apoya principalmente 
 ---
 
 ## Índices demográficos especializados
-El script calcula tres indicadores clave para resumir la estructura demográfica:
+Calculé tres indicadores clave para resumir la estructura demográfica:
 
 1. **Índice de masculinidad**  
    - **Fórmula:** (Nº hombres / Nº mujeres) × 100  
@@ -223,9 +223,9 @@ Los mayores de 55 años son minoritarios (5.7 %), lo que evidencia una població
 
 ## Composición por sexo
 Del total de efectivos, **4.470 son hombres (69.6%) y 1.953 son mujeres (30.4%)**.  
-Esto confirma la brecha de género señalada por el índice de masculinidad.
+Esto confirma la hipótesis de brecha de género señalada por el índice de masculinidad.
 
-**Gráfico 08. Distribución de sexo por categoría (heatmap)**  
+**Gráfico: Distribución de sexo por categoría (heatmap)**  
 ![08](../08_sexo_por_categoria.png)
 
 El heatmap muestra que en los **civiles la proporción es casi equilibrada**, mientras que en los **oficiales** predominan los hombres (71 %) y en los **suboficiales** la diferencia es aún mayor (83 %).  
@@ -249,7 +249,7 @@ Los grados superiores (coroneles y generales) concentran un número muy reducido
 ![10](../10_oficiales_distribucion_grado_sexo.png)
 
 
-El análisis jerárquico revela que **las mujeres tienen mayor presencia en grados iniciales**, pero prácticamente desaparecen en la cúspide de oficiales y suboficiales. Esto muestra un **“techo de cristal”** en la progresión de la carrera militar.
+El análisis jerárquico muestra que **las mujeres tienen mayor presencia en grados iniciales**, pero prácticamente desaparecen en la cúspide de oficiales y suboficiales. Esto muestra un **“techo de cristal”** en la progresión de la carrera militar.
 
 ---
 
@@ -272,10 +272,10 @@ El nivel educativo refleja un capital humano diverso:
 - Otros niveles (técnico, media, básica): menores proporciones  
 - Posgrados (especialización, maestría, doctorado): minoritarios, concentrados en oficiales  
 
-**Gráfico 05. Distribución por nivel educativo**  
+**Gráfico: Distribución por nivel educativo**  
 ![05](../05_distribucion_nivel_educativo.png)
 
-**Gráfico 09. Heatmap de educación por categoría**  
+**Gráfico: Heatmap de educación por categoría**  
 ![09](../09_educacion_por_categoria.png)
 
 El heatmap muestra que los **suboficiales se concentran en formación tecnológica**, los **oficiales en formación profesional y posgrados**, y los **civiles en una mezcla más heterogénea** con peso en secundaria/media.  
@@ -284,7 +284,7 @@ Esto refleja trayectorias educativas diferenciadas según la función institucio
 ---
 
 ## Asociaciones y diferencias significativas
-El módulo estadístico del script aplicó pruebas de independencia y comparaciones de medias para validar patrones:
+Apliqué pruebas de independencia y comparaciones de medias para validar patrones:
 
 - **Sexo × Categoría:** asociación moderada (V de Cramér = 0.290).  
 - **Grupo etario × Categoría:** asociación fuerte (V = 0.504).  
@@ -295,11 +295,11 @@ Adicionalmente:
 - **Edad promedio H vs M:** diferencia de -2.8 años (mujeres más jóvenes), resultado muy significativo.  
 - **ANOVA edad por categoría:** diferencias muy significativas; los civiles son más mayores que oficiales y suboficiales.
 
-Estas pruebas confirman que **las diferencias observadas en los gráficos no son aleatorias**, sino sistemáticas y estadísticamente sólidas.
+Estas pruebas confirman que **las diferencias observadas en los gráficos no son aleatorias**, sino estadísticamente significativas.
 
 ---
 
-## Respuestas a preguntas clave
+## Respuestas a preguntas planteadas
 1. **Rango de edad más común:** entre 28 y 33 años.  
 2. **Distribución por género:** Hombres = 69.6 % · Mujeres = 30.4 %.  
 3. **Grado más frecuente:** T3 – Suboficial Técnico Tercero (622 efectivos).  
@@ -307,7 +307,7 @@ Estas pruebas confirman que **las diferencias observadas en los gráficos no son
 
 ---
 
-## Conclusiones estratégicas
+## Conclusiones 
 - La FAC cuenta con un **bono demográfico joven-adulto (25–35 años)**, que garantiza capacidad operativa actual, pero demanda planificación de relevos en el mediano plazo.  
 - Se confirma un **predominio masculino fuerte**, especialmente en cargos militares, y la existencia de un **techo de cristal** que limita la progresión de las mujeres hacia los grados superiores.  
 - La **estructura institucional descansa en los suboficiales**, particularmente en los grados técnicos T3, T2 y T1.  
