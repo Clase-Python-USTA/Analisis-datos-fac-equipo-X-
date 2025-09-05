@@ -290,9 +290,6 @@ Apliqué pruebas de independencia y comparaciones de medias para validar patrone
 - **Estado civil × Sexo:** asociación moderada (V = 0.153).  
 - **Nivel educativo × Categoría:** asociación fuerte (V = 0.638).  
 
-Adicionalmente:  
-- **Edad promedio H vs M:** diferencia de -2.8 años (mujeres más jóvenes), resultado muy significativo.  
-- **ANOVA edad por categoría:** diferencias muy significativas; los civiles son más mayores que oficiales y suboficiales.
 
 Estas pruebas confirman que **las diferencias observadas en los gráficos no son aleatorias**, sino estadísticamente significativas.
 
