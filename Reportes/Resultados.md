@@ -283,7 +283,7 @@ Esto refleja trayectorias educativas diferenciadas según la función institucio
 ---
 
 ## Asociaciones y diferencias significativas
-Apliqué pruebas de independencia y comparaciones de medias para validar patrones:
+Apliqué pruebas de independencia y comparaciones de medias para validar patrones, los resultados de fuerza de asociación fueron los siguientes:
 
 - **Sexo × Categoría:** asociación moderada (V de Cramér = 0.290).  
 - **Grupo etario × Categoría:** asociación fuerte (V = 0.504).  
@@ -291,7 +291,7 @@ Apliqué pruebas de independencia y comparaciones de medias para validar patrone
 - **Nivel educativo × Categoría:** asociación fuerte (V = 0.638).  
 
 
-Estas pruebas confirman que **las diferencias observadas en los gráficos no son aleatorias**, sino estadísticamente significativas.
+Estas pruebas, junto con ANOVAS confirman que **las diferencias observadas en los gráficos no son aleatorias**, sino estadísticamente significativas.
 
 ---
 
