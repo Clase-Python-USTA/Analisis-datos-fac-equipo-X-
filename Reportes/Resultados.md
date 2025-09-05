@@ -71,19 +71,19 @@ Se aplicaron reglas de consistencia entre variables relacionadas con el fin de r
 
 - **HIJOS y NUMERO_HIJOS**  
   - Cuando `HIJOS = "no"` y `NUMERO_HIJOS = NA`, se imputó con **0**.  
-  - **2.754 registros corregidos.**
+  - **2.754 registros corregidos 42.88%.**
 
 - **HIJOS y HIJOS_EN_HOGAR**  
   - Misma regla anterior.  
-  - **2.754 registros corregidos.**
+  - **2.754 registros corregidos 42.88%.**
 
 - **MADRE_VIVE y EDAD_MADRE / RANGO_EDAD_MADRE**  
   - Cuando la madre estaba fallecida y la edad no estaba registrada, se imputó con **0**.  
-  - **750 registros corregidos.**
+  - **750 registros corregidos 11.68%.**
 
 - **PADRE_VIVE y EDAD_PADRE / RANGO_EDAD_PADRE**  
   - Mismo criterio aplicado.  
-  - **1.797 registros corregidos.**
+  - **1.797 registros corregidos 27.99%.**
 
     En esta fase no me limité únicamente a aplicar reglas lógicas, sino que también recurrí a técnicas estadísticas más robustas.
 
