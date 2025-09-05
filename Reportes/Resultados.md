@@ -113,7 +113,6 @@ Además, al trabajar con un dataset sociodemográfico amplio (más de 200 variab
 
 Con este procedimiento:  
 - Pude completar prácticamente todos los valores faltantes en variables numéricas.  
-- Trunqué los valores negativos a cero para evitar inconsistencias.  
 - Respeté los ceros reales que representan situaciones lógicas (por ejemplo, padres fallecidos).  
 - Reconstruí coherentemente los rangos de edad de padre y madre con base en las imputaciones numéricas.  
 
