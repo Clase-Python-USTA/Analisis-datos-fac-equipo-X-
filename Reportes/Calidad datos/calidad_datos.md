@@ -97,7 +97,7 @@ En esta fase no me limité únicamente a aplicar reglas lógicas, sino que tambi
 
 Primero, como ya conté, realicé las imputaciones simples: completé con cero los casos donde `HIJOS = "no"` y `NUMERO_HIJOS` estaba vacío, lo mismo con `HIJOS_EN_HOGAR`. También ajusté los registros de los padres y madres fallecidos, asignando cero en las variables de edad cuando correspondía. Estos pasos me ayudaron a alinear la información básica y reducir incoherencias.  
 
-Sin embargo, para resolver los faltantes en variables numéricas más complejas, decidí aplicar **MICE (Multivariate Imputation by Chained Equations)**. En el código configuré el `IterativeImputer` con una semilla fija (`random_state = 42`) para asegurar la reproducibilidad de los resultados. Este método lo escogí porque me permite **imputar de manera iterativa cada variable faltante en función de todas las demás**, lo que aprovecha al máximo las correlaciones entre variables.  
+Sin embargo, para resolver los faltantes en variables numéricas más complejas, decidí aplicar **MICE**. En el código configuré el `IterativeImputer` con una semilla fija (`random_state = 42`) para asegurar la reproducibilidad de los resultados. Este método lo escogí porque me permite **imputar de manera iterativa cada variable faltante en función de todas las demás**, lo que aprovecha al máximo las correlaciones entre variables.  
 
 En la práctica, MICE funciona construyendo un modelo de regresión para cada variable con datos faltantes y lo actualiza en varias iteraciones. Así, no se rellenan los vacíos con medias globales o medianas que pueden distorsionar la variabilidad, sino que cada imputación está condicionada a la información disponible de los demás campos del individuo.  
 
