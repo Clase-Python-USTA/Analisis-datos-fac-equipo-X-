@@ -7,7 +7,7 @@
 ---
 
 ## 1. Introducción
-El presente informe expone de manera detallada el análisis de calidad y depuración de datos efectuado sobre la base de información suministrada por la Fuerza Aérea Colombiana (FAC), específicamente contenida en el archivo JEFAB_2024.xlsx.
+En este informe expone de manera detallada el análisis de calidad y depuración de datos efectuado sobre la base de información suministrada por la Fuerza Aérea Colombiana (FAC), específicamente contenida en el archivo JEFAB_2024.xlsx.
 
 El propósito central de este ejercicio fue evaluar el estado inicial de la base de datos, identificar las principales limitaciones en términos de calidad y aplicar procesos de transformación y depuración que permitan garantizar la coherencia, consistencia y confiabilidad de los registros. La calidad de la información constituye un requisito indispensable, dado que esta base de datos será empleada en etapas posteriores de análisis estadístico, construcción de modelos y apoyo a la toma de decisiones estratégicas orientadas a los objetivos institucionales de la FAC.
 
